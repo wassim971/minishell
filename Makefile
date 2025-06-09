@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+         #
+#    By: wassim <wassim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 14:49:09 by wbaali            #+#    #+#              #
-#    Updated: 2025/06/05 15:03:14 by wbaali           ###   ########.fr        #
+#    Updated: 2025/06/08 14:19:19 by wassim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT = $(LIBFTPATH)/libft.a
 	${CC} ${CFLAGS} ${INCLUDE} -c $< -o ${<:.c=.o} 
 
 $(NAME) : $(OBJS) $(LIBFT)
-	${CC} ${CFLAGS}${INCLUDE} -lreadline $^ -o $(NAME)
+	${CC} ${CFLAGS} ${INCLUDE} $^ -lreadline -no-pie -o $(NAME)
 
 $(LIBFT) :
 	$(MAKE) -C $(LIBFTPATH)
@@ -44,13 +44,12 @@ all: ${NAME}
 
 clean:
 	rm -f ${OBJS}
-	$(MAKE) clean -C $(FT_PRINTF_PATH)
-	$(MAKE) clean -C $(LIBFTPATH)
+	$(MAKE) clean $(FT_PRINTF_PATH)
+	$(MAKE) clean $(LIBFTPATH)
 
 fclean: clean
 	rm -f ${NAME}
-	$(MAKE) fclean -C $(FT_PRINTF_PATH)
-	$(MAKE) fclean -C $(LIBFTPATH)
+	$(MAKE) fclean $(LIBFTPATH)
 
 re: fclean all
 

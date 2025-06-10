@@ -6,7 +6,7 @@
 /*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/06/08 14:46:05 by wassim           ###   ########.fr       */
+/*   Updated: 2025/06/10 02:00:15 by wassim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,17 @@
 
 char	*get_exp(char *cmd, t_mini base, int len)
 {
-	char	**paths;
-	char	*path;
+	char	*expend;
 	int		i;
-	char	*part_path;
 
 	i = 0;
-	while (ft_strnstr(base.input[i], cmd, len) == 0)
+	while (base.env[i] && ft_strnstr(base.env[i], cmd, len) == 0)
 		i++;
-	paths = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (paths[i])
-	{
-		part_path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(part_path, cmd);
-		free(part_path);
-		if (access(path, F_OK) == 0)
-			return (path);
-		free(path);
-		i++;
-	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
-	return (0);
+	if (!base.env[i])
+		return (NULL);
+	expend = ft_strdup(base.env[i] + (len + 1));
+	free(cmd);
+	return (expend);
 }
 
 char *ft_strndup_range(const char *s, int start, int end)

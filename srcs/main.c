@@ -3,16 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/06/10 02:00:15 by wassim           ###   ########.fr       */
+/*   Updated: 2025/06/14 18:25:40 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 #include <stdlib.h>
+
+int	chercher_fin(const char *texte, const char *motif)
+{
+	char	*position;
+
+	position = strstr(texte, motif);
+	if (position != NULL)
+	{
+		return ((int)(position - texte) + ft_strlen(motif) - 1);
+	}
+	else
+	{
+		return (-1);
+	}
+}
+
+char	*replace(t_mini base, int start, int end, char *expend)
+{
+	char	*new_input;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	new_input = malloc(sizeof(char) * (ft_strlen(base.input) - (end - start - 1)
+				+ ft_strlen(expend)));
+	while (i != start - 1)
+	{
+		new_input[i] = base.input[i];
+		i++;
+	}
+	while (expend && expend[j] != '\0')
+	{
+		new_input[i] = expend[j];
+		i++;
+		j++;
+	}
+	j = end;
+	while (base.input[j])
+	{
+		new_input[i] = base.input[j];
+		i++;
+		j++;
+	}
+	new_input[i] = '\0';
+	free(base.input);
+	return (new_input);
+}
 
 char	*get_exp(char *cmd, t_mini base, int len)
 {
@@ -29,40 +76,50 @@ char	*get_exp(char *cmd, t_mini base, int len)
 	return (expend);
 }
 
-char *ft_strndup_range(const char *s, int start, int end)
+char	*ft_strndup_range(const char *s, int start, int end)
 {
-    int len;
-    char *sub;
-    int i;
+	int		len;
+	char	*sub;
+	int		i;
 
-    if (!s || start < 0 || end < start)
-        return NULL;
-    len = end - start;
-    sub = malloc(sizeof(char) * (len + 1));
-    if (!sub)
-        return NULL;
-    i = 0;
-    while (start < end && s[start])
-        sub[i++] = s[start++];
-    sub[i] = '\0';
-    return sub;
+	if (!s || start < 0 || end < start)
+		return (NULL);
+	len = end - start;
+	sub = malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	i = 0;
+	while (start < end && s[start])
+		sub[i++] = s[start++];
+	sub[i] = '\0';
+	return (sub);
 }
 
-void	parsexp(t_mini base, int i)
+int	parsexp(t_mini base, int i)
 {
-	int start;
-	char *expend;
+	int		start;
+	char	*expend;
 
 	start = i;
 	if (base.input[i] == '\'')
-		return;
+		return (0);
 	while (ft_isalnum(base.input[i]) || base.input[i] == '_')
 		i++;
 	if (start != i)
 	{
 		expend = ft_strndup_range(base.input, start, i);
-		expend = get_exp(expend,base,(i - start));
+		expend = get_exp(expend, base, (i - start));
+		base.input = replace(base, start, i, expend);
+		printf("%s\n", base.input);
+		if (expend != NULL)
+		{
+			i = chercher_fin(base.input, expend);
+			printf("i : %d", i);
+		}
+		else
+			i = start;
 	}
+	return (i);
 }
 
 int	parsdq(t_mini base, int i)
@@ -70,7 +127,7 @@ int	parsdq(t_mini base, int i)
 	while (base.input[i] && base.input[i] != '"')
 	{
 		if (base.input[i] == '$')
-			parsexp(base, ++i);
+			i = parsexp(base, ++i);
 		i++;
 	}
 	if (base.input[i] == '\0')

@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/06/10 15:06:07 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/06/15 15:06:14 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_mini
 	char	*input;
 	char	**mot;
 	char	**env;
+	int		index;
 }			t_mini;
 
 #endif

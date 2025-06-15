@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/06/14 18:25:40 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/06/15 15:45:39 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	chercher_fin(const char *texte, const char *motif)
 	}
 }
 
-char	*replace(t_mini base, int start, int end, char *expend)
+void	replace(t_mini *base, int start, int end, char *expend)
 {
 	char	*new_input;
 	int		i;
@@ -36,11 +36,11 @@ char	*replace(t_mini base, int start, int end, char *expend)
 
 	i = 0;
 	j = 0;
-	new_input = malloc(sizeof(char) * (ft_strlen(base.input) - (end - start - 1)
-				+ ft_strlen(expend)));
+	new_input = malloc(sizeof(char) * (ft_strlen(base->input) - (end - start
+					- 1) + ft_strlen(expend)));
 	while (i != start - 1)
 	{
-		new_input[i] = base.input[i];
+		new_input[i] = base->input[i];
 		i++;
 	}
 	while (expend && expend[j] != '\0')
@@ -49,16 +49,17 @@ char	*replace(t_mini base, int start, int end, char *expend)
 		i++;
 		j++;
 	}
+	base->index = i;
 	j = end;
-	while (base.input[j])
+	while (base->input[j])
 	{
-		new_input[i] = base.input[j];
+		new_input[i] = base->input[j];
 		i++;
 		j++;
 	}
 	new_input[i] = '\0';
-	free(base.input);
-	return (new_input);
+	free(base->input);
+	base->input = new_input;
 }
 
 char	*get_exp(char *cmd, t_mini base, int len)
@@ -95,54 +96,47 @@ char	*ft_strndup_range(const char *s, int start, int end)
 	return (sub);
 }
 
-int	parsexp(t_mini base, int i)
+int	parsexp(t_mini *base, int i)
 {
 	int		start;
 	char	*expend;
 
 	start = i;
-	if (base.input[i] == '\'')
+	if (base->input[i] == '\'')
 		return (0);
-	while (ft_isalnum(base.input[i]) || base.input[i] == '_')
+	while (ft_isalnum(base->input[i]) || base->input[i] == '_')
 		i++;
 	if (start != i)
 	{
-		expend = ft_strndup_range(base.input, start, i);
-		expend = get_exp(expend, base, (i - start));
-		base.input = replace(base, start, i, expend);
-		printf("%s\n", base.input);
-		if (expend != NULL)
-		{
-			i = chercher_fin(base.input, expend);
-			printf("i : %d", i);
-		}
-		else
-			i = start;
+		expend = ft_strndup_range(base->input, start, i);
+		expend = get_exp(expend, *base, (i - start));
+		replace(base, start, i, expend);
+		i = base->index - 1;
 	}
 	return (i);
 }
 
-int	parsdq(t_mini base, int i)
+int	parsdq(t_mini *base, int i)
 {
-	while (base.input[i] && base.input[i] != '"')
+	while (base->input[i] && base->input[i] != '"')
 	{
-		if (base.input[i] == '$')
+		if (base->input[i] == '$')
 			i = parsexp(base, ++i);
 		i++;
 	}
-	if (base.input[i] == '\0')
+	if (base->input[i] == '\0')
 		return (0);
 	return (i);
 }
 
-void	parsing(t_mini base)
+void	parsing(t_mini *base)
 {
 	int	i;
 
 	i = 0;
-	while (base.input[i])
+	while (base->input[i])
 	{
-		if (base.input[i] == '"')
+		if (base->input[i] == '"')
 		{
 			i = parsdq(base, ++i);
 			if (i == 0)
@@ -177,11 +171,11 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		base.input = readline("Minirex >");
-		parsing(base);
 		if (base.input && base.input[0])
 		{
 			add_history(base.input);
 			// base.mot = ft_split(base.input, ' ');
 		}
+		parsing(&base);
 	}
 }

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wassim <wassim@student.42.fr>              +#+  +:+       +#+         #
+#    By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 14:49:09 by wbaali            #+#    #+#              #
-#    Updated: 2025/06/08 14:19:19 by wassim           ###   ########.fr        #
+#    Updated: 2025/07/18 02:51:27 by wbaali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC =  $(addprefix srcs/, main.c)
+SRC =  $(addprefix srcs/, main.c cmd.c env.c expend.c expend1.c expend2.c free.c free2.c get.c liste_utils.c liste_utils2.c liste.c parsing.c print.c signal.c token.c utils1.c utils2.c utils3.c)
 
 SRCS = ${SRC}
 

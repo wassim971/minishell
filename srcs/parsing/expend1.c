@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:50:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/29 18:47:55 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/30 01:00:21 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@ int	add_char(char *c, char **str, t_data *data, int *index)
 	char	char_to_str[2];
 	char	*tmp2;
 	int		i;
-	char	*new;
 
 	i = 0;
 	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
 	{
 		if (i == 0)
 		{
-			new = ft_strjoin(*str, "$");
-			free(*str);
-			*str = new;
+			ft_strjoin_free(*str, "$");
 			(*index)++;
 		}
 		return (1);
@@ -34,8 +31,7 @@ int	add_char(char *c, char **str, t_data *data, int *index)
 	char_to_str[0] = *c;
 	char_to_str[1] = '\0';
 	(*index)++;
-	tmp2 = ft_strjoin(*str, char_to_str);
-	free(*str);
+	tmp2 = ft_strjoin_free(*str, char_to_str);
 	if (!tmp2)
 		return (0);
 	*str = tmp2;

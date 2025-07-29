@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/29 18:21:07 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/30 01:01:23 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int						here_doc(t_data *data, char *word);
 int						replace_dollar(char **line, t_data *data);
 int						append_substr(char **dest, char *src, int len);
 int						ft_strlen_exp(char *line);
+char					*ft_strjoin_free(char *s1, char *s2);
 
 #endif

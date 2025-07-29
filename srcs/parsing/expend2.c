@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:08:31 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/25 19:00:04 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/30 01:00:46 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	append_substr(char **dest, char *src, int len)
 	substr = ft_substr(src, 0, len);
 	if (!substr)
 		return (0);
-	tmp = ft_strjoin(*dest, substr);
-	free(substr);
-	free(*dest);
+	tmp = ft_strjoin_free(*dest, substr);
 	*dest = tmp;
 	if (!*dest)
 		return (0);

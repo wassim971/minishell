@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:52:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 02:58:49 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/30 01:12:25 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,24 @@ int	append(t_mini_list **list, char *elem)
 		(*list)->prev = new;
 	}
 	return (1);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char *tmp;
+
+
+	if (!s1 && !s2)
+		return (ft_strdup(""));
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+	{
+		tmp = ft_strdup(s1);
+		free(s1);
+		return (tmp);
+	}
+	tmp = ft_strjoin(s1, s2);
+	free(s1);
+	return (tmp);
 }

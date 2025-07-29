@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+         #
+#    By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 14:49:09 by wbaali            #+#    #+#              #
-#    Updated: 2025/07/18 02:51:27 by wbaali           ###   ########.fr        #
+#    Updated: 2025/07/30 00:55:00 by ainthana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,12 @@ LIBFT = libft/libft.a
 
 SRC = \
 	srcs/main.c \
-	srcs/cmd.c srcs/env.c srcs/expend.c srcs/expend1.c srcs/expend2.c srcs/free.c srcs/free2.c \
-	srcs/get.c srcs/liste.c srcs/liste_utils.c srcs/liste_utils2.c srcs/parsing.c srcs/print.c \
-	srcs/signal.c srcs/token.c srcs/utils1.c srcs/utils2.c srcs/utils3.c \
+	srcs/exec/cmd.c \
+	srcs/env/env.c \
+	srcs/parsing/expend.c srcs/parsing/expend1.c srcs/parsing/expend2.c srcs/parsing/get.c srcs/parsing/parsing.c \
+	srcs/parsing/signal.c srcs/parsing/token.c \
+	srcs/utils/free.c srcs/utils/free2.c srcs/utils/print.c srcs/utils/liste.c \
+	srcs/utils/utils1.c srcs/utils/utils2.c srcs/utils/utils3.c srcs/utils/liste_utils.c srcs/utils/liste_utils2.c\
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -35,7 +38,7 @@ INFO = \033[34m•
 all: $(OBJ_DIR) $(LIBFT) $(NAME)
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)/srcs
+	@mkdir -p $(OBJ_DIR)/srcs/parsing $(OBJ_DIR)/srcs/exec $(OBJ_DIR)/srcs/builtin $(OBJ_DIR)/srcs/utils
 	@echo "$(ACT) Dossiers objets prêts."
 
 $(NAME): $(OBJ)

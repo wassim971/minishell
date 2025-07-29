@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:50:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/25 19:01:41 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/29 18:47:55 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ int	add_char(char *c, char **str, t_data *data, int *index)
 	char	char_to_str[2];
 	char	*tmp2;
 	int		i;
+	char	*new;
 
 	i = 0;
 	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
 	{
 		if (i == 0)
 		{
-			*str = ft_strjoin(*str, "$");
+			new = ft_strjoin(*str, "$");
+			free(*str);
+			*str = new;
 			(*index)++;
 		}
 		return (1);

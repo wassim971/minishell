@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/25 16:14:30 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/29 18:40:13 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,16 @@ int	replace_dollar(char **line, t_data *data)
 	str = ft_strdup("");
 	while ((*line)[i])
 	{
-		printf("avant : %s\n", str);
 		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
 		if ((*line)[i] && (*line)[i + 1] && (*line)[i] == '$' && ((*line)[i
 				+ 1] != '\'' && (*line)[i + 1] != '"') && (ft_isalpha((*line)[i
 				+ 1]) || (*line)[i + 1] == '?' || (*line)[i + 1] == '_')
 				&& !data->sq && !add_dollar((*line), &i, &str, data))
 			return (0);
-		printf("apres :%s\n", str);
 		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
 			return (0);
 	}
-	free(*line);
-	*line = str;
+	*line = &(*str);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:37:17 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/25 16:16:06 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/29 17:47:53 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*get_dollar_word(char *line, int size)
 	if (!dollar)
 		return (NULL);
 	i = 0;
-	printf("%d\n", size);
 	while (line[++i] && i < size)
 	{
 		dollar[i - 1] = line[i];
@@ -41,7 +40,6 @@ char	*get_elem_env(t_mini_list *env, char *key)
 	tmp = env;
 	len = len_list(tmp);
 	t = ft_strlen(key);
-	printf("%d,%d\n", len, t);
 	while (len--)
 	{
 		if (ft_strncmp(tmp->str, key, t) == 0)
@@ -64,7 +62,6 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	char	*value;
 
 	key = get_dollar_word(line, size);
-	printf("%s\n", key);
 	value = get_elem_env(data->env, key);
 	if (key)
 		free(key);
@@ -93,7 +90,6 @@ static int	dollar_point_interrogation(t_data *data, char **str)
 	if (!tmp2)
 		return (0);
 	*str = tmp2;
-	printf("%s\n", tmp2);
 	return (1);
 }
 
@@ -114,7 +110,6 @@ int	add_dollar(char *line, int *index, char **str, t_data *data)
 	else if (ctrl == 2)
 	{
 		(*index) += 2;
-		printf("%c\n", line[n + 1]);
 		return (dollar_point_interrogation(data, str));
 	}
 	else

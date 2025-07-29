@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 03:14:56 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/29 17:41:19 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **env)
 		free_all(&data, MALLOC_ERROR, EXT_MALLOC);
 	while (1)
 	{
-		line = readline("minirex> ");
+		line = readline("minironflex> ");
 		if (!line)
 			free_all(&data, "exit\n", data.exit_code);
 		if (empty_line(line))

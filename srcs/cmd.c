@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 static int	cmd_new_elem(t_cmd **new, int infile, int outfile, char **cmd_param)
 {

@@ -11,45 +11,55 @@
 # **************************************************************************** #
 
 NAME = minishell
-
-SRC =  $(addprefix srcs/, main.c cmd.c env.c expend.c expend1.c expend2.c free.c free2.c get.c liste_utils.c liste_utils2.c liste.c parsing.c print.c signal.c token.c utils1.c utils2.c utils3.c)
-
-SRCS = ${SRC}
-
-OBJS = ${SRCS:.c=.o}
-
-INCLUDE = -Iinc
-
 CC = cc
+CFLAGS = -Wall -Werror -Wextra -g3
+LIBFT = libft/libft.a
 
-CFLAGS = -Wall -Werror -Wextra
+SRC = \
+	srcs/main.c \
+	srcs/cmd.c srcs/env.c srcs/expend.c srcs/expend1.c srcs/expend2.c srcs/free.c srcs/free2.c \
+	srcs/get.c srcs/liste.c srcs/liste_utils.c srcs/liste_utils2.c srcs/parsing.c srcs/print.c \
+	srcs/signal.c srcs/token.c srcs/utils1.c srcs/utils2.c srcs/utils3.c \
 
-LIBFTPATH = libft
+OBJ_DIR = obj
+OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
-LIBFT = $(LIBFTPATH)/libft.a
+# ───── Colors ─────
+RESET = \033[0m
+BOLD = \033[1m
+OK = \033[32m✔
+FAIL = \033[31m✘
+ACT = \033[36m➤
+INFO = \033[34m•
 
-.c.o:
-	${CC} ${CFLAGS} ${INCLUDE} -c $< -o ${<:.c=.o} 
+all: $(OBJ_DIR) $(LIBFT) $(NAME)
 
-$(NAME) : $(OBJS) $(LIBFT)
-	${CC} ${CFLAGS} ${INCLUDE} $^ -lreadline -no-pie -o $(NAME)
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)/srcs
+	@echo "$(ACT) Dossiers objets prêts."
 
-$(LIBFT) :
-	$(MAKE) -C $(LIBFTPATH)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $@
+	@echo "$(OK) $(NAME) compilé avec succès.$(RESET)"
 
-$(FT_PRINTF) : 
-	$(MAKE) -C $(FT_PRINTF_PATH)
+$(LIBFT):
+	@echo "$(ACT) Compilation libft..."
+	@$(MAKE) --no-print-directory -C libft > /dev/null
 
-all: ${NAME}
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -Ilibft -c $< -o $@
+	@echo "$(INFO) Compilation : $<$(RESET)"
 
 clean:
-	rm -f ${OBJS}
-	$(MAKE) clean $(FT_PRINTF_PATH)
-	$(MAKE) clean $(LIBFTPATH)
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) --no-print-directory -C libft clean > /dev/null
+	@echo "$(FAIL) Fichiers objets nettoyés.$(RESET)"
 
 fclean: clean
-	rm -f ${NAME}
-	$(MAKE) fclean $(LIBFTPATH)
+	@rm -f $(NAME)
+	@$(MAKE) --no-print-directory -C libft fclean > /dev/null
+	@echo "$(FAIL) Exécutable supprimé.$(RESET)"
 
 re: fclean all
 

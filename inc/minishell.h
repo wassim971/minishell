@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/30 01:01:23 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:03:53 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_cmd
 	bool				skip_cmd;
 	int					infile;
 	int					outfile;
-	char				**cmd_param;
+	char **cmd_param; // cat << e | cat << e
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -102,7 +102,7 @@ int						exist_in_env(char *line, int *i, t_data *data);
 bool					is_space(char c);
 int						is_special(char *str);
 bool					create_list_token(t_token **begin, char *command);
-int						append_token(t_token **list, char *str, int type);
+int						append_token(t_token **list, char **str, int type);
 bool					create_list_cmd(t_data *data);
 int						append_cmd(t_cmd **list, int infile, int outfile,
 							char **cmd_param);

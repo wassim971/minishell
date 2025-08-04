@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:57:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 02:55:10 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/31 10:27:42 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	fill_cmd(t_data *data, t_token *tmp)
 	return (true);
 }
 
-static bool	norm(t_data *data, t_token *tmp)
+static bool	build_command(t_data *data, t_token *tmp)
 {
 	if (!append_cmd(&data->cmd, -2, -2, NULL))
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
@@ -57,14 +57,14 @@ bool	create_list_cmd(t_data *data)
 	t_token	*tmp;
 
 	tmp = data->token;
-	if (!norm(data, tmp))
+	if (!build_command(data, tmp))
 		return (false);
 	tmp = tmp->next;
 	while (tmp != data->token)
 	{
 		if (tmp->prev->type == PIPE)
 		{
-			if (!norm(data, tmp))
+			if (!build_command(data, tmp))
 				return (false);
 		}
 		tmp = tmp->next;

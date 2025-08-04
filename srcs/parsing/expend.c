@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:37:17 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/29 17:47:53 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/04 10:47:46 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	dollar_point_interrogation(t_data *data, char **str)
 	if (!tmp)
 		return (0);
 	// if (line != '$')
-	tmp2 = ft_strjoin(tmp, *str);
+	tmp2 = ft_strjoin(*str, tmp);
 	free(tmp);
 	free(*str);
 	if (!tmp2)

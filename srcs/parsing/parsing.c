@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/30 01:07:21 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:57:23 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,39 @@ int	replace_dollar(char **line, t_data *data)
 	return (1);
 }
 
+void	print_cmd(t_cmd *token)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	if (!token)
+	{
+		printf("Token list is empty.\n");
+		return ;
+	}
+	tmp = token;
+	while (tmp->next && tmp->next != token)
+	{
+		i = 0;
+		printf("Type cmd : ");
+		while (tmp->cmd_param[i])
+		{
+			printf("%s ; %d", tmp->cmd_param[i], tmp->skip_cmd);
+			i++;
+		}
+		printf("\n");
+		tmp = tmp->next;
+	}
+	i = 0;
+	printf("Type cmd : ");
+	while (tmp->cmd_param[i])
+	{
+		printf("%s ; %d", tmp->cmd_param[i], tmp->skip_cmd);
+		i++;
+	}
+	printf("\n");
+}
+
 bool	parseline(t_data *data, char *line)
 {
 	if (open_quote(data, line))
@@ -110,5 +143,6 @@ bool	parseline(t_data *data, char *line)
 		free_cmd(&data->cmd);
 		return (false);
 	}
+	print_cmd(data->cmd);
 	return (check_pipe(data));
 }

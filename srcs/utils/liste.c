@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:54:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 08:11:50 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/30 11:44:19 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ static bool	add_cmd(t_token **begin, char **command)
 	if (!str)
 		return (false);
 	copy_token(*command, length - (2 * quotes), str, i);
-	if (!append_token(begin, str, 0))
-		return (false);
+	if (!append_token(begin, &str, 0))
+		return (free(str), false);
 	if ((*begin)->prev == (*begin) || (*begin)->prev->prev->type == PIPE)
 		(*begin)->prev->type = CMD;
 	else
@@ -94,21 +94,25 @@ static bool	add_cmd(t_token **begin, char **command)
 
 static bool	add_special(t_token **begin, char **command)
 {
-	int	spe;
+	int		spe;
+	char	*value;
 
 	spe = is_special(*command);
 	if (!spe)
 		return (false);
-	if (spe == INPUT && !append_token(begin, ft_strdup("<"), INPUT))
-		return (false);
-	else if (spe == HEREDOC && !append_token(begin, ft_strdup("<<"), HEREDOC))
-		return (false);
-	else if (spe == TRUNC && !append_token(begin, ft_strdup(">"), TRUNC))
-		return (false);
-	else if (spe == APPEND && !append_token(begin, ft_strdup(">>"), APPEND))
-		return (false);
-	else if (spe == PIPE && !append_token(begin, ft_strdup("|"), PIPE))
-		return (false);
+	value = NULL;
+	if (spe == INPUT)
+		value = ft_strdup("<");
+	else if (spe == HEREDOC)
+		value = ft_strdup("<<");
+	else if (spe == TRUNC)
+		value = ft_strdup(">");
+	else if (spe == APPEND)
+		value = ft_strdup(">>");
+	else if (spe == PIPE)
+		value = ft_strdup("|");
+	if (!value || !append_token(begin, &value, spe))
+		return (free(value), false);
 	if (spe == INPUT || spe == TRUNC || spe == PIPE)
 		(*command)++;
 	else if (spe == HEREDOC || spe == APPEND)

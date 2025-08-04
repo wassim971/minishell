@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:00:18 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 03:01:45 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/07/30 12:10:34 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static void	add_first(t_token **list, t_token *new)
 	(*list)->next = *list;
 }
 
-int	append_token(t_token **list, char *str, int type)
+int	append_token(t_token **list, char **str, int type)
 {
 	t_token	*new;
 
-	if (!token_new_elem(&new, str, type))
+	if (!token_new_elem(&new, (*str), type))
 		return (0);
 	if (!(*list))
 		add_first(list, new);

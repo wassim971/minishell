@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:50:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/30 01:00:21 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:12:58 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	add_char(char *c, char **str, t_data *data, int *index)
 	{
 		if (i == 0)
 		{
-			ft_strjoin_free(*str, "$");
+			*str = ft_strjoin_free(*str, "$");
 			(*index)++;
 		}
 		return (1);

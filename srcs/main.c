@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/29 17:41:19 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/04 10:45:25 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,9 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		if (!parseline(&data, line))
 			continue ;
+		// exec(&data);
+		if (data.token)
+			free_token(&data.token);
 	}
+	rl_clear_history();
 }

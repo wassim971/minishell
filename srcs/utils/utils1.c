@@ -10,78 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-size_t	len_list(t_mini_list *list)
-{
-	t_mini_list	*tmp;
-	size_t		i;
+size_t len_list(t_mini_list *list) {
+  t_mini_list *tmp;
+  size_t i;
 
-	if ((list))
-	{
-		tmp = list;
-		i = 1;
-		while (tmp->next != list)
-		{
-			++i;
-			tmp = tmp->next;
-		}
-		return (i);
-	}
-	return (0);
+  if ((list)) {
+    tmp = list;
+    i = 1;
+    while (tmp->next != list) {
+      ++i;
+      tmp = tmp->next;
+    }
+    return (i);
+  }
+  return (0);
 }
 
-static int	list_new_elem_str(t_mini_list **new, char *elem)
-{
-	(*new) = malloc(sizeof(t_mini_list));
-	if (*new == NULL)
-		return (0);
-	(*new)->str = elem;
-	(*new)->next = NULL;
-	(*new)->prev = NULL;
-	return (1);
+static int list_new_elem_str(t_mini_list **new, char *elem) {
+  (*new) = malloc(sizeof(t_mini_list));
+  if (*new == NULL)
+    return (0);
+  (*new)->str = elem;
+  (*new)->next = NULL;
+  (*new)->prev = NULL;
+  return (1);
 }
-static void	add_first(t_mini_list **list, t_mini_list *new)
-{
-	(*list) = new;
-	(*list)->prev = *list;
-	(*list)->next = *list;
+static void add_first(t_mini_list **list, t_mini_list *new) {
+  (*list) = new;
+  (*list)->prev = *list;
+  (*list)->next = *list;
 }
 
-int	append(t_mini_list **list, char *elem)
-{
-	t_mini_list	*new;
+int append(t_mini_list **list, char *elem) {
+  t_mini_list *new;
 
-	if (!list_new_elem_str(&new, elem))
-		return (0);
-	if (!(*list))
-		add_first(list, new);
-	else
-	{
-		new->prev = (*list)->prev;
-		new->next = (*list);
-		(*list)->prev->next = new;
-		(*list)->prev = new;
-	}
-	return (1);
+  if (!list_new_elem_str(&new, elem))
+    return (0);
+  if (!(*list))
+    add_first(list, new);
+  else {
+    new->prev = (*list)->prev;
+    new->next = (*list);
+    (*list)->prev->next = new;
+    (*list)->prev = new;
+  }
+  return (1);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char *tmp;
+char *ft_strjoin_free(char *s1, char *s2) {
+  char *tmp;
 
-
-	if (!s1 && !s2)
-		return (ft_strdup(""));
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-	{
-		tmp = ft_strdup(s1);
-		free(s1);
-		return (tmp);
-	}
-	tmp = ft_strjoin(s1, s2);
-	free(s1);
-	return (tmp);
+  if (!s1 && !s2)
+    return (ft_strdup(""));
+  if (!s1)
+    return (ft_strdup(s2));
+  if (!s2) {
+    tmp = ft_strdup(s1);
+    free(s1);
+    return (tmp);
+  }
+  tmp = ft_strjoin(s1, s2);
+  free(s1);
+  return (tmp);
 }

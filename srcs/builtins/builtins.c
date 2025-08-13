@@ -13,14 +13,14 @@ int is_builtin(t_cmd *cmd)
          || strcmp(name, "exit") == 0);
 }
 
-int run_builtin(t_cmd *cmd)
+int run_builtin(t_data *data, t_cmd *cmd)
 {
     if (strcmp(cmd->cmd_param[0], "echo") == 0)
-        return ft_echo();
+        return ft_echo(cmd);
     else if (strcmp(cmd->cmd_param[0], "pwd") == 0)
-        return ft_pwd();
+        return ft_pwd(cmd);
     else if (strcmp(cmd->cmd_param[0], "env") == 0)
-        return ft_env();
+        return ft_env(data, cmd);
     else if (strcmp(cmd->cmd_param[0], "cd") == 0)
         return ft_cd();
     else if (strcmp(cmd->cmd_param[0], "export") == 0)
@@ -29,6 +29,7 @@ int run_builtin(t_cmd *cmd)
         return ft_unset();
     else if (strcmp(cmd->cmd_param[0], "exit") == 0)
         return ft_exit();
-    return 1;
+    return (1);
 }
+
 

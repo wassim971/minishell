@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <linux/limits.h>
 
 # define INPUT 1   //"<"
 # define HEREDOC 2 //"<<"
@@ -122,9 +123,9 @@ int ft_exit();
 int ft_cd();
 int ft_export();
 int ft_unset();
-int ft_echo();
-int ft_env();
-int ft_pwd();
+int	ft_echo(t_cmd *cmd);
+int	ft_env(t_data *data, t_cmd *cmd);
+int	ft_pwd(t_cmd *cmd);
 
 
 #endif

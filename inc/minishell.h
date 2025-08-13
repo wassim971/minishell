@@ -48,7 +48,7 @@ typedef struct s_cmd
 	bool				skip_cmd;
 	int					infile;
 	int					outfile;
-	char **cmd_param; // cat << e | cat << e
+	char				**cmd_param;
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -117,5 +117,14 @@ int						replace_dollar(char **line, t_data *data);
 int						append_substr(char **dest, char *src, int len);
 int						ft_strlen_exp(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
+
+int ft_exit();
+int ft_cd();
+int ft_export();
+int ft_unset();
+int ft_echo();
+int ft_env();
+int ft_pwd();
+
 
 #endif

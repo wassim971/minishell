@@ -22,7 +22,8 @@ SRC = \
 	srcs/parsing/expend.c srcs/parsing/expend1.c srcs/parsing/expend2.c srcs/parsing/get.c srcs/parsing/parsing.c \
 	srcs/parsing/signal.c srcs/parsing/token.c \
 	srcs/utils/free.c srcs/utils/free2.c srcs/utils/print.c srcs/utils/liste.c \
-	srcs/utils/utils1.c srcs/utils/utils2.c srcs/utils/utils3.c srcs/utils/liste_utils.c srcs/utils/liste_utils2.c\
+	srcs/utils/utils1.c srcs/utils/utils2.c srcs/utils/utils3.c srcs/utils/liste_utils.c srcs/utils/liste_utils2.c \
+	srcs/builtins/builtins.c srcs/builtins/builtins1.c \
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)

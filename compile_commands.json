@@ -1,0 +1,920 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_atoi.o",
+      "ft_atoi.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_atoi.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_atoi.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_bzero.o",
+      "ft_bzero.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_bzero.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_bzero.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_calloc.o",
+      "ft_calloc.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_calloc.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_calloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_isalnum.o",
+      "ft_isalnum.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isalnum.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isalnum.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_isalpha.o",
+      "ft_isalpha.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isalpha.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isalpha.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_isascii.o",
+      "ft_isascii.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isascii.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isascii.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_isdigit.o",
+      "ft_isdigit.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isdigit.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isdigit.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_isprint.o",
+      "ft_isprint.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isprint.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_isprint.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_memchr.o",
+      "ft_memchr.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memchr.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_memcmp.o",
+      "ft_memcmp.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memcmp.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memcmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_memcpy.o",
+      "ft_memcpy.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memcpy.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memcpy.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_memmove.o",
+      "ft_memmove.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memmove.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memmove.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_memset.o",
+      "ft_memset.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memset.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_memset.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strchr.o",
+      "ft_strchr.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strchr.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strdup.o",
+      "ft_strdup.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strdup.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strdup.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strlcat.o",
+      "ft_strlcat.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strlcat.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strlcat.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strlcpy.o",
+      "ft_strlcpy.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strlcpy.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strlcpy.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strlen.o",
+      "ft_strlen.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strlen.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strlen.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strncmp.o",
+      "ft_strncmp.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strncmp.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strncmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strnstr.o",
+      "ft_strnstr.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strnstr.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strnstr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strrchr.o",
+      "ft_strrchr.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strrchr.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strrchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_tolower.o",
+      "ft_tolower.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_tolower.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_tolower.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_toupper.o",
+      "ft_toupper.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_toupper.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_toupper.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_itoa.o",
+      "ft_itoa.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_itoa.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_itoa.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_putchar_fd.o",
+      "ft_putchar_fd.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putchar_fd.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putchar_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_putendl_fd.o",
+      "ft_putendl_fd.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putendl_fd.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putendl_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_putnbr_fd.o",
+      "ft_putnbr_fd.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putnbr_fd.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putnbr_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_putstr_fd.o",
+      "ft_putstr_fd.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putstr_fd.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_putstr_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_split.o",
+      "ft_split.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_split.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_split.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strjoin.o",
+      "ft_strjoin.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strjoin.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strjoin.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strmapi.o",
+      "ft_strmapi.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strmapi.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strmapi.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_strtrim.o",
+      "ft_strtrim.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strtrim.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_strtrim.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_substr.o",
+      "ft_substr.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_substr.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_substr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "./",
+      "-c",
+      "-o",
+      "ft_striteri.o",
+      "ft_striteri.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_striteri.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/libft/ft_striteri.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/main.o",
+      "srcs/main.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/main.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/exec/cmd.o",
+      "srcs/exec/cmd.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/exec/cmd.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/exec/cmd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/env/env.o",
+      "srcs/env/env.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/env/env.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/env/env.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/expend.o",
+      "srcs/parsing/expend.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/expend.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/expend.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/expend1.o",
+      "srcs/parsing/expend1.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/expend1.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/expend1.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/expend2.o",
+      "srcs/parsing/expend2.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/expend2.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/expend2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/get.o",
+      "srcs/parsing/get.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/get.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/get.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/parsing.o",
+      "srcs/parsing/parsing.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/parsing.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/parsing.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/signal.o",
+      "srcs/parsing/signal.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/signal.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/signal.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/parsing/token.o",
+      "srcs/parsing/token.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/parsing/token.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/parsing/token.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/free.o",
+      "srcs/utils/free.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/free.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/free.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/free2.o",
+      "srcs/utils/free2.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/free2.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/free2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/print.o",
+      "srcs/utils/print.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/print.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/print.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/liste.o",
+      "srcs/utils/liste.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/liste.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/liste.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/utils1.o",
+      "srcs/utils/utils1.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/utils1.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/utils1.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/utils2.o",
+      "srcs/utils/utils2.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/utils2.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/utils2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/utils3.o",
+      "srcs/utils/utils3.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/utils3.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/utils3.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/liste_utils.o",
+      "srcs/utils/liste_utils.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/liste_utils.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/liste_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/utils/liste_utils2.o",
+      "srcs/utils/liste_utils2.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/utils/liste_utils2.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/utils/liste_utils2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g3",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/srcs/builtins/builtins.o",
+      "srcs/builtins/builtins.c"
+    ],
+    "directory": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git",
+    "file": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/srcs/builtins/builtins.c",
+    "output": "/home/ainthana/cursus/minishell-folder/minishell_wassim_git/obj/srcs/builtins/builtins.o"
+  }
+]

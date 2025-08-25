@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/04 18:03:53 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/22 16:03:44 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <linux/limits.h>
 
 # define INPUT 1   //"<"
 # define HEREDOC 2 //"<<"
@@ -49,7 +48,7 @@ typedef struct s_cmd
 	bool				skip_cmd;
 	int					infile;
 	int					outfile;
-	char				**cmd_param;
+	char **cmd_param; // cat << e | cat << e
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -78,6 +77,7 @@ typedef struct s_data
 	int					exit_code;
 	int					pip[2];
 	bool				sq;
+	char				*last_cmd;
 }						t_data;
 
 int						append(t_mini_list **list, char *elem);
@@ -103,7 +103,8 @@ int						exist_in_env(char *line, int *i, t_data *data);
 bool					is_space(char c);
 int						is_special(char *str);
 bool					create_list_token(t_token **begin, char *command);
-int						append_token(t_token **list, char **str, int type);
+int						append_token(t_token **list, char **str, int type,
+							int quote);
 bool					create_list_cmd(t_data *data);
 int						append_cmd(t_cmd **list, int infile, int outfile,
 							char **cmd_param);
@@ -118,14 +119,26 @@ int						replace_dollar(char **line, t_data *data);
 int						append_substr(char **dest, char *src, int len);
 int						ft_strlen_exp(char *line);
 char					*ft_strjoin_free(char *s1, char *s2);
-
-int ft_exit();
-int ft_cd();
-int ft_export();
-int ft_unset();
-int	ft_echo(t_cmd *cmd);
-int	ft_env(t_data *data, t_cmd *cmd);
-int	ft_pwd(t_cmd *cmd);
-
+void					quoting_choice(bool *dq, bool *sq, int *index, char c);
+size_t					len_cmd(t_cmd *list);
+bool					is_builtin(char *cmd);
+void					child_process(t_data *data, t_cmd *cmd, int *pip);
+bool					launch_builtin(t_data *data, t_cmd *cmd);
+void					absolute_path(char **path, char *cmd, t_data *data);
+char					*find_cmd(t_data *data, char *sample, t_mini_list *env);
+int						ft_strslashjoin(char *dest, char *str, char *env,
+							int *index);
+char					**lst_to_arr(t_mini_list *env);
+void					signals2(void);
+int						ft_cd(t_data *data, char **params);
+int						ft_env(t_mini_list *env);
+bool					exec(t_data *data);
+int						ft_pwd(void);
+int						ft_echo(char **args);
+int						ft_unset(char **str, t_mini_list **env);
+int						ft_export(char **str, t_mini_list **env);
+void					ft_exit(t_data *data, char **args);
+bool					export(char *str, t_mini_list **env);
+void					sort_array(char **arr, int len);
 
 #endif

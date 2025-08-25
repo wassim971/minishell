@@ -1,39 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expend1.c                                          :+:      :+:    :+:   */
+/*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/18 00:50:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/21 14:37:38 by wbaali           ###   ########.fr       */
+/*   Created: 2025/08/22 16:01:13 by wbaali            #+#    #+#             */
+/*   Updated: 2025/08/22 16:01:35 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	add_char(char *c, char **str, t_data *data, int *index)
+static void	ft_swap_str_tab(int i, int j, char **tab)
 {
-	char	char_to_str[2];
-	char	*tmp2;
-	int		i;
+	char	*temp;
+
+	temp = tab[i];
+	tab[i] = tab[j];
+	tab[j] = temp;
+}
+
+// sorts array
+void	sort_array(char **arr, int len)
+{
+	int	i;
+	int	j;
+	int	diff;
 
 	i = 0;
-	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
+	while (i < len)
 	{
-		if (i == 0)
+		j = i + 1;
+		while (j < len)
 		{
-			*str = ft_strjoin_free(*str, "$");
-			(*index)++;
+			diff = ft_strncmp(arr[i], arr[j], __INT_MAX__);
+			if (diff > 0)
+			{
+				ft_swap_str_tab(i, j, arr);
+				continue ;
+			}
+			j++;
 		}
-		return (1);
+		i++;
 	}
-	char_to_str[0] = *c;
-	char_to_str[1] = '\0';
-	(*index)++;
-	tmp2 = ft_strjoin_free(*str, char_to_str);
-	if (!tmp2)
-		return (0);
-	*str = tmp2;
-	return (1);
 }

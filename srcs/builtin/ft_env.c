@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expend1.c                                          :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/18 00:50:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/21 14:37:38 by wbaali           ###   ########.fr       */
+/*   Created: 2025/08/22 15:38:06 by wbaali            #+#    #+#             */
+/*   Updated: 2025/08/22 15:55:15 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	add_char(char *c, char **str, t_data *data, int *index)
+int	ft_env(t_mini_list *env)
 {
-	char	char_to_str[2];
-	char	*tmp2;
-	int		i;
+	t_mini_list	*temp;
 
-	i = 0;
-	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
-	{
-		if (i == 0)
-		{
-			*str = ft_strjoin_free(*str, "$");
-			(*index)++;
-		}
-		return (1);
-	}
-	char_to_str[0] = *c;
-	char_to_str[1] = '\0';
-	(*index)++;
-	tmp2 = ft_strjoin_free(*str, char_to_str);
-	if (!tmp2)
+	temp = env;
+	if (!temp)
 		return (0);
-	*str = tmp2;
-	return (1);
+	if (ft_strchr(temp->str, '='))
+		printf("%s\n", temp->str);
+	temp = temp->next;
+	while (temp != env)
+	{
+		if (ft_strchr(temp->str, '='))
+			printf("%s\n", temp->str);
+		temp = temp->next;
+	}
+	return (0);
 }

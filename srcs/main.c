@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/04 10:45:25 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/22 15:19:06 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_data(t_data *data)
 	data->env = NULL;
 	data->token = NULL;
 	data->cmd = NULL;
+	data->last_cmd = NULL;
 	data->exit_code = 0;
 	data->pip[0] = -1;
 	data->pip[1] = -1;
@@ -60,9 +61,13 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		if (!parseline(&data, line))
 			continue ;
-		// exec(&data);
-		if (data.token)
-			free_token(&data.token);
+		if (!exec(&data))
+			free_all(&data, PIPE_ERROR, EXT_PIPE);
+		free_cmd(&data.cmd);
+		free_token(&data.token);
+		g_signal_pid = 0;
 	}
 	rl_clear_history();
+	free_all(&data, NULL, -1);
+	return (0);
 }

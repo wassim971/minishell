@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expend1.c                                          :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/18 00:50:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/21 14:37:38 by wbaali           ###   ########.fr       */
+/*   Created: 2025/08/22 15:45:44 by wbaali            #+#    #+#             */
+/*   Updated: 2025/08/22 15:54:46 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	add_char(char *c, char **str, t_data *data, int *index)
+int	ft_pwd(void)
 {
-	char	char_to_str[2];
-	char	*tmp2;
-	int		i;
+	char	cwd[PATH_MAX];
 
-	i = 0;
-	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
+	if (getcwd(cwd, PATH_MAX))
 	{
-		if (i == 0)
-		{
-			*str = ft_strjoin_free(*str, "$");
-			(*index)++;
-		}
+		printf("%s\n", cwd);
+		return (0);
+	}
+	else
+	{
+		perror("pwd");
 		return (1);
 	}
-	char_to_str[0] = *c;
-	char_to_str[1] = '\0';
-	(*index)++;
-	tmp2 = ft_strjoin_free(*str, char_to_str);
-	if (!tmp2)
-		return (0);
-	*str = tmp2;
-	return (1);
 }

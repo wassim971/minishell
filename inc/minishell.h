@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/22 16:03:44 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 15:01:53 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,12 @@ int						ft_export(char **str, t_mini_list **env);
 void					ft_exit(t_data *data, char **args);
 bool					export(char *str, t_mini_list **env);
 void					sort_array(char **arr, int len);
+void					free_part(t_data *data);
+void					update_shlvl(t_data *data);
+bool					condition(char *line, int i);
+bool					condition1(char *line, int i);
+int						add_chars(char *c, char **str, t_data *data,
+							int *index);
+char					*ft_strjoin_frees(char *s1, char *s2);
 
 #endif

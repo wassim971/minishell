@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:43:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/21 13:54:30 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 15:01:16 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,23 @@ int	ft_strlen_exp(char *line)
 	if (i == 1)
 		return (i - 1);
 	return (i);
+}
+
+char	*ft_strjoin_frees(char *s1, char *s2)
+{
+	char	*tmp;
+
+	if (!s1 && !s2)
+		return (ft_strdup(""));
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+	{
+		tmp = ft_strdup(s1);
+		free(s1);
+		return (tmp);
+	}
+	tmp = ft_strjoin(s1, s2);
+	free(s2);
+	return (tmp);
 }

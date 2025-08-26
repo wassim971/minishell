@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:08:31 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/19 01:05:45 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 12:51:29 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	exist_in_env(char *line, int *i, t_data *data)
 	t_mini_list	*start;
 	int			var_len;
 
-	if (line[*i + 1] == '?' || line[*i + 1] == '$')
+	if (line[*i + 1] == '?' || line[*i + 1] == '$' || line[*i + 1] == '\''
+		|| line[*i + 1] == '"')
 		return (2);
 	tmp = data->env;
 	start = tmp;

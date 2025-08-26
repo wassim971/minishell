@@ -6,11 +6,13 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:46:36 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 01:52:40 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 11:33:03 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include <limits.h> // pour PATH_MAX
+#include <unistd.h> // pour getcwd
 
 bool	make_env2(t_data *data)
 {
@@ -21,6 +23,12 @@ bool	make_env2(t_data *data)
 	if (!tmp || !append(&(data->env), tmp) || getcwd(path, PATH_MAX) == NULL)
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 	tmp = ft_strjoin("PWD=", path);
+	if (!tmp || !append(&(data->env), tmp))
+		free_all(data, MALLOC_ERROR, EXT_MALLOC);
+	tmp = ft_strdup("SHLVL=1");
+	if (!tmp || !append(&(data->env), tmp))
+		free_all(data, MALLOC_ERROR, EXT_MALLOC);
+	tmp = ft_strdup("_=/usr/bin/env");
 	if (!tmp || !append(&(data->env), tmp))
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 	return (1);

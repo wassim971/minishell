@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:54:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/21 14:30:27 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 14:10:24 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ static bool	add_special(t_token **begin, char **command)
 bool	create_list_token(t_token **begin, char *command)
 {
 	(*begin) = NULL;
+	if (!(*command))
+	{
+		free_token(begin);
+		return (false);
+	}
 	while (*command)
 	{
 		while (is_space(*command))

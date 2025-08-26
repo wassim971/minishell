@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/22 16:10:24 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 14:29:41 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ int	open_quote(t_data *data, char *line)
 	return (0);
 }
 
+bool	condition1(char *line, int i)
+{
+	if (!line[i] || !line[i + 1])
+		return (false);
+	if (line[i] != '$')
+		return (false);
+	if (line[i + 1] == '\'' || line[i + 1] == '"')
+		return (false);
+	if (!ft_isalpha(line[i + 1]) && line[i + 1] != '?' && line[i + 1] != '_')
+		return (false);
+	return (true);
+}
+
 int	replace_dollar(char **line, t_data *data)
 {
 	bool	dq;
@@ -71,10 +84,8 @@ int	replace_dollar(char **line, t_data *data)
 	while ((*line)[i])
 	{
 		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
-		if ((*line)[i] && (*line)[i + 1] && (*line)[i] == '$' && ((*line)[i
-				+ 1] != '\'' && (*line)[i + 1] != '"') && (ft_isalpha((*line)[i
-				+ 1]) || (*line)[i + 1] == '?' || (*line)[i + 1] == '_')
-				&& !data->sq && !add_dollar((*line), &i, &str, data))
+		if (condition1((*line), i) && !data->sq && !add_dollar((*line), &i,
+				&str, data))
 			return (0);
 		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
 			return (0);
@@ -125,6 +136,11 @@ bool	parseline(t_data *data, char *line)
 	}
 	if (!replace_dollar(&line, data) || !create_list_token(&data->token, line))
 	{
+		if (line[0] == '\0')
+		{
+			free(line);
+			return (false);
+		}
 		free(line);
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 	}

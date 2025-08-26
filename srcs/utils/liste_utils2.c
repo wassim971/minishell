@@ -6,13 +6,13 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:48:41 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/22 16:10:27 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/08/26 12:37:23 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static bool	condition(char *line, int i)
+bool	condition(char *line, int i)
 {
 	if (!line[i] || !line[i + 1])
 		return (false);
@@ -39,7 +39,7 @@ static int	replace_dollars(char **line, t_data *data)
 	{
 		if (condition((*line), i) && !add_dollar((*line), &i, &str, data))
 			return (0);
-		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
+		if ((*line)[i] && !add_chars(&(*line)[i], &str, data, &i))
 			return (0);
 	}
 	*line = &(*str);
@@ -66,7 +66,6 @@ static bool	read_in_stdin(t_data *data, int fd, char *word)
 			break ;
 		if (data->token->prev->type != 147 && !replace_dollars(&buf, data))
 			free_all(data, MALLOC_ERROR, EXT_MALLOC);
-		printf("str : %s\n", buf);
 		write(fd, buf, ft_strlen(buf));
 		write(fd, "\n", 1);
 		free(buf);

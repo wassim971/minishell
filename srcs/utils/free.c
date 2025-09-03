@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:56:42 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/19 05:14:42 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:09:18 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	free_cmd(t_cmd **list)
 	free_all_cmd(current);
 	free(current);
 	*list = NULL;
+	get_cmd(NULL, 1);
 }
 
 void	free_token(t_token **list)
@@ -104,5 +105,8 @@ void	free_all(t_data *data, char *err, int ext)
 	if (!access(".heredoc.tmp", F_OK))
 		unlink(".heredoc.tmp");
 	if (ext != -1)
+	{
+		rl_clear_history();
 		exit(ext);
+	}
 }

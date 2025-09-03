@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 15:01:53 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:08:41 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -48,6 +49,7 @@ typedef struct s_cmd
 	bool				skip_cmd;
 	int					infile;
 	int					outfile;
+	pid_t				pid;
 	char **cmd_param; // cat << e | cat << e
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
@@ -147,5 +149,7 @@ bool					condition1(char *line, int i);
 int						add_chars(char *c, char **str, t_data *data,
 							int *index);
 char					*ft_strjoin_frees(char *s1, char *s2);
+t_data					*get_data(t_data *data);
+t_cmd					*get_cmd(t_cmd *cmd, int state);
 
 #endif

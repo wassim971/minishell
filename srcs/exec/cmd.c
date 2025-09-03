@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:05:05 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/18 02:27:55 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 20:56:29 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	cmd_new_elem(t_cmd **new, int infile, int outfile, char **cmd_param)
 	(*new)->infile = infile;
 	(*new)->outfile = outfile;
 	(*new)->cmd_param = cmd_param;
+	(*new)->pid = 0;
 	(*new)->next = NULL;
 	(*new)->prev = NULL;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:19:29 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/22 14:30:30 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:08:30 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	parent_process(t_data *data, t_cmd *cmd, int *pip)
 	close(pip[1]);
 	if (cmd->infile >= 0)
 		close(cmd->infile);
+	if (cmd->outfile >= 0)
+		close(cmd->outfile);
 	if (cmd->infile == -2)
 		cmd->infile = pip[0];
 	if (cmd->next != data->cmd && cmd->next->infile == -2)
@@ -37,40 +39,102 @@ static void	parent_process(t_data *data, t_cmd *cmd, int *pip)
 		close(pip[0]);
 }
 
+// static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
+// {
+// 	g_signal_pid = fork();
+// 	if (g_signal_pid < 0)
+// 		free_all(data, FORK_ERROR, EXT_FORK);
+// 	else if (!g_signal_pid)
+// 	{
+// 		if (cmd->cmd_param && cmd->cmd_param[0])
+// 			child_process(data, cmd, pip);
+// 		else
+// 			free_all(data, NULL, 0);
+// 	}
+// 	else
+// 		parent_process(data, cmd, pip);
+// 	return (true);
+// }
+
 static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 {
-	g_signal_pid = fork();
-	if (g_signal_pid < 0)
-		free_all(data, FORK_ERROR, EXT_FORK);
-	else if (!g_signal_pid)
+	cmd->pid = fork();
+	get_cmd(cmd,0);
+	if (cmd->pid < 0)
 	{
+		perror("fork");
+		data->exit_code = 1;
+		return (false);
+	}
+	else if (cmd->pid == 0)
+	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		if (cmd->cmd_param && cmd->cmd_param[0])
 			child_process(data, cmd, pip);
 		else
+		{
+			data->exit_code = 1;
 			free_all(data, NULL, 0);
+		}
 	}
 	else
+	{
+		get_cmd(cmd,0);
 		parent_process(data, cmd, pip);
+	}
 	return (true);
 }
 
-static void	wait_all(t_data *data)
+// static void	wait_all(t_data *data)
+// {
+// 	int		status;
+// 	int		pid;
+// 	int		len;
+// 	t_cmd	*tmp;
+
+// 	tmp = data->cmd;
+// 	len = len_cmd(tmp);
+// 	while (len--)
+// 	{
+// 		pid = waitpid(0, &status, 0);
+// 		if (pid == g_signal_pid)
+// 		{
+// 			if (WIFEXITED(status))
+// 				data->exit_code = WEXITSTATUS(status);
+// 		}
+// 		if (tmp->outfile >= 0)
+// 			close(tmp->outfile);
+// 		if (tmp->infile >= 0)
+// 			close(tmp->infile);
+// 		tmp = tmp->next;
+// 	}
+// }
+
+void	wait_all(t_data *data)
 {
 	int		status;
-	int		pid;
-	int		len;
 	t_cmd	*tmp;
+	pid_t	pid;
+	bool	jsp;
+	int		sig;
 
+	jsp = 1;
 	tmp = data->cmd;
-	len = len_cmd(tmp);
-	while (len--)
+	while (jsp || tmp != data->cmd)
 	{
-		pid = waitpid(0, &status, 0);
-		if (pid == g_signal_pid)
+		jsp = 0;
+		pid = waitpid(tmp->pid, &status, 0);
+		if (WIFSIGNALED(status))
 		{
-			if (WIFEXITED(status))
-				data->exit_code = WEXITSTATUS(status);
+			sig = WTERMSIG(status);
+			if (sig == SIGQUIT)
+				write(2, "Quit (core dumped)\n", 19);
+			data->exit_code = 131;
 		}
+		if (pid == tmp->pid && WIFEXITED(status) && data->exit_code != 130
+			&& data->exit_code != 1)
+			data->exit_code = WEXITSTATUS(status);
 		if (tmp->outfile >= 0)
 			close(tmp->outfile);
 		if (tmp->infile >= 0)

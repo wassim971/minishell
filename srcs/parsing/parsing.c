@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 14:29:41 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/02 20:48:24 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	replace_dollar(char **line, t_data *data)
 		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
 			return (0);
 	}
+	free(*line);
 	*line = &(*str);
 	return (1);
 }

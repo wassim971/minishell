@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:52:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 15:00:23 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:09:49 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,14 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	if (s1)
 		free(s1);
 	return (tmp);
+}
+
+t_cmd	*get_cmd(t_cmd *cmd, int state)
+{
+	static t_cmd	*save;
+
+	if (!cmd && state == 0)
+		return (save);
+	save = cmd;
+	return (NULL);
 }

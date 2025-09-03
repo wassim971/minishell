@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:28:30 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 11:53:09 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:08:55 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,18 @@ void	clear_rl_line(void)
 
 static void	handle_sigint(int code)
 {
+	t_cmd	*save;
+
 	(void)code;
 	printf("\n");
 	clear_rl_line();
-	if (g_signal_pid == 0)
+	save = get_cmd(NULL,0);
+	if (!save)
+	{
+		rl_redisplay();
+		return ;
+	}
+	else if (save->pid == 0)
 		rl_redisplay();
 }
 
@@ -31,6 +39,7 @@ static void	handle_sigsegv(int code)
 {
 	(void)code;
 	write(2, "Segmentation fault\n", 19);
+	rl_clear_history();
 	exit(11);
 }
 

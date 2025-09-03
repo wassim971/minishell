@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 15:02:25 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:57:21 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int	main(int ac, char **av, char **env)
 		if (!parseline(&data, line))
 			continue ;
 		if (!exec(&data))
+		{
+			free(line);
 			free_all(&data, PIPE_ERROR, EXT_PIPE);
+		}
 		free_part(&data);
 		g_signal_pid = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:10:57 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/21 14:08:46 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/03 21:18:04 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
 	{
 		if (cmd->infile >= 0)
 			close(cmd->infile);
-		if (tmp == tmp->next || tmp->next->type <= 5)
+		if (tmp == tmp->next || tmp->next->type <= 6)
 			return (print_error_token(tmp, data));
 		cmd->infile = open_file(data, tmp->next->str, INPUT);
 		if (cmd->infile == -1)
@@ -46,7 +46,7 @@ static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
 	{
 		if (cmd->infile >= 0)
 			close(cmd->infile);
-		if (tmp == tmp->next || tmp->next->type <= 5)
+		if (tmp == tmp->next || tmp->next->type <= 6)
 			return (print_error_token(tmp, data));
 		cmd->infile = open_file(data, tmp->next->str, HEREDOC);
 		if (cmd->infile == -1)
@@ -79,7 +79,7 @@ static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
 	{
 		if (cmd->outfile >= 0)
 			close(cmd->outfile);
-		if (tmp == tmp->next || tmp->next->type <= 5)
+		if (tmp == tmp->next || tmp->next->type <= 6)
 			return (print_error_token(tmp, data));
 		cmd->outfile = open_file(NULL, tmp->next->str, TRUNC);
 		if (cmd->outfile == -1)
@@ -89,7 +89,7 @@ static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
 	{
 		if (cmd->outfile >= 0)
 			close(cmd->outfile);
-		if (tmp == tmp->next || tmp->next->type <= 5)
+		if (tmp == tmp->next || tmp->next->type <= 6)
 			return (print_error_token(tmp, data));
 		cmd->outfile = open_file(NULL, tmp->next->str, APPEND);
 		if (cmd->outfile == -1)

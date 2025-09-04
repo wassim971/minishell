@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liste_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:57:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/02 16:20:36 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:55:40 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	fill_cmd(t_data *data, t_token *tmp)
 {
-	if (!get_infile(data, tmp, data->cmd->prev) && data->cmd->prev->infile !=
-		-1)
+	if (!get_infile(data, tmp, data->cmd->prev)
+		&& data->cmd->prev->infile != -1)
 		return (false);
 	if (data->cmd->prev->infile == -1)
 	{
@@ -23,8 +23,8 @@ static bool	fill_cmd(t_data *data, t_token *tmp)
 		data->cmd->prev->outfile = -1;
 		return (true);
 	}
-	if (!get_outfile(tmp, data->cmd->prev, data) && data->cmd->prev->outfile !=
-		-1)
+	if (!get_outfile(tmp, data->cmd->prev, data)
+		&& data->cmd->prev->outfile != -1)
 		return (false);
 	if (data->cmd->prev->outfile == -1)
 	{

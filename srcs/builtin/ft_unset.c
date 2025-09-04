@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 15:46:44 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/22 15:54:34 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:50:02 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ static bool	unset(char *str, t_mini_list **env)
 
 int	ft_unset(char **str, t_mini_list **env)
 {
-	int exit_code;
-	int i;
+	int	exit_code;
+	int	i;
 
 	exit_code = 0;
 	i = 0;

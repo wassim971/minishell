@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:10:57 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/03 21:18:04 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 15:32:42 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
 			return (print_error_token(tmp, data));
 		cmd->infile = open_file(data, tmp->next->str, INPUT);
 		if (cmd->infile == -1)
+		{
+			cmd->skip_cmd = true;
 			return (false);
+		}
 	}
 	else if (tmp->type == HEREDOC)
 	{
@@ -50,7 +53,10 @@ static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
 			return (print_error_token(tmp, data));
 		cmd->infile = open_file(data, tmp->next->str, HEREDOC);
 		if (cmd->infile == -1)
+		{
+			cmd->skip_cmd = true;
 			return (false);
+		}
 	}
 	return (true);
 }
@@ -61,18 +67,25 @@ bool	get_infile(t_data *data, t_token *token, t_cmd *cmd)
 
 	tmp = token;
 	if (tmp->type != PIPE && !get_in(data, tmp, cmd))
+	{
+		cmd->skip_cmd = true;
 		return (false);
+	}
 	if (tmp->type == PIPE)
 		return (true);
 	tmp = tmp->next;
 	while (tmp->type != PIPE && tmp != data->token)
 	{
 		if (!get_in(data, tmp, cmd))
+		{
+			cmd->skip_cmd = true;
 			return (false);
+		}
 		tmp = tmp->next;
 	}
 	return (true);
 }
+
 static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
 {
 	if (tmp->type == TRUNC)
@@ -83,7 +96,10 @@ static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
 			return (print_error_token(tmp, data));
 		cmd->outfile = open_file(NULL, tmp->next->str, TRUNC);
 		if (cmd->outfile == -1)
+		{
+			cmd->skip_cmd = true;
 			return (false);
+		}
 	}
 	else if (tmp->type == APPEND)
 	{
@@ -93,7 +109,10 @@ static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
 			return (print_error_token(tmp, data));
 		cmd->outfile = open_file(NULL, tmp->next->str, APPEND);
 		if (cmd->outfile == -1)
+		{
+			cmd->skip_cmd = true;
 			return (false);
+		}
 	}
 	return (true);
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/03 21:08:41 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 18:05:49 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL
-# define MINISHELL
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "../libft/libft.h"
 # include <fcntl.h>
@@ -50,7 +50,7 @@ typedef struct s_cmd
 	int					infile;
 	int					outfile;
 	pid_t				pid;
-	char **cmd_param; // cat << e | cat << e
+	char				**cmd_param;
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -124,8 +124,8 @@ char					*ft_strjoin_free(char *s1, char *s2);
 void					quoting_choice(bool *dq, bool *sq, int *index, char c);
 size_t					len_cmd(t_cmd *list);
 bool					is_builtin(char *cmd);
-void					child_process(t_data *data, t_cmd *cmd, int *pip);
-bool					launch_builtin(t_data *data, t_cmd *cmd);
+void					child_process(t_data **data, t_cmd **cmd, int *pip);
+bool					launch_builtin(t_data **data, t_cmd **cmd);
 void					absolute_path(char **path, char *cmd, t_data *data);
 char					*find_cmd(t_data *data, char *sample, t_mini_list *env);
 int						ft_strslashjoin(char *dest, char *str, char *env,

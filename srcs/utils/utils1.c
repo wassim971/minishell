@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:52:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/03 21:09:49 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:57:01 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	list_new_elem_str(t_mini_list **new, char *elem)
 	(*new)->prev = NULL;
 	return (1);
 }
+
 static void	add_first(t_mini_list **list, t_mini_list *new)
 {
 	(*list) = new;

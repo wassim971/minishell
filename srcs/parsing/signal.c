@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:28:30 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/03 21:08:55 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:54:15 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	handle_sigint(int code)
 	(void)code;
 	printf("\n");
 	clear_rl_line();
-	save = get_cmd(NULL,0);
+	save = get_cmd(NULL, 0);
 	if (!save)
 	{
 		rl_redisplay();

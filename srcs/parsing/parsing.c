@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/02 20:48:24 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:54:02 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ bool	parseline(t_data *data, char *line)
 	free(line);
 	free(data->last_cmd);
 	data->last_cmd = ft_strdup(data->token->prev->str);
-	// print_token(data->token);
 	if (data->token && data->token->prev->type == PIPE)
 	{
 		write(2, "Error: Unclosed pipe\n", 21);
@@ -162,6 +161,5 @@ bool	parseline(t_data *data, char *line)
 		free_cmd(&data->cmd);
 		return (false);
 	}
-	// print_cmd(data->cmd);
 	return (check_pipe(data));
 }

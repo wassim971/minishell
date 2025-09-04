@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:08:31 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 12:51:29 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:53:12 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	exist_in_env(char *line, int *i, t_data *data)
 		var_len = ft_strchr(tmp->str, '=') - tmp->str;
 		if (ft_strncmp(tmp->str, &line[*i + 1], var_len) == 0
 			&& !ft_isalnum(line[*i + 1 + var_len]) && line[*i + 1
-			+ var_len] != '_')
+				+ var_len] != '_')
 		{
 			*i += var_len + 1;
 			return (1);

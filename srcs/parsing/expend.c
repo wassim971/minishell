@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:37:17 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 13:07:33 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:52:51 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static int	dollar_point_interrogation(t_data *data, char **str)
 	tmp = ft_itoa(data->exit_code);
 	if (!tmp)
 		return (0);
-	// if (line != '$')
 	tmp2 = ft_strjoin(*str, tmp);
 	free(tmp);
 	free(*str);

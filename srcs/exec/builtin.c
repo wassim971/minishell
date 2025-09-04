@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:59:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/03 21:42:51 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 18:04:38 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,28 @@ static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 	}
 }
 
-bool	launch_builtin(t_data *data, t_cmd *cmd)
+bool	launch_builtin(t_data **data, t_cmd **cmd)
 {
 	int	save_stdout;
 
 	save_stdout = -1;
-	if (cmd->outfile >= 0)
+	if ((*cmd)->outfile >= 0)
 	{
-		save_stdout = dup(1);
-		dup2(cmd->outfile, 1);
-		close(cmd->outfile);
+		if((*cmd)->pid != 0)
+			save_stdout = dup(1);
+		dup2((*cmd)->outfile, 1);
+		close((*cmd)->outfile);
 	}
-	exec_builtin(save_stdout, data, cmd);
-	if (save_stdout >= 0)
+	exec_builtin(save_stdout, (*data), (*cmd));
+	if((*cmd)->pid != 0)
 	{
-		dup2(save_stdout, 1);
-		close(save_stdout);
+		if (save_stdout >= 0)
+		{
+			dup2(save_stdout, 1);
+			close(save_stdout);
+		}
 	}
 	return (true);
 }
+
+

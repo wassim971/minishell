@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/03 21:57:21 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 17:17:41 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-pid_t	g_signal_pid;
 
 void	init_data(t_data *data)
 {
@@ -23,9 +21,9 @@ void	init_data(t_data *data)
 	data->exit_code = 0;
 	data->pip[0] = -1;
 	data->pip[1] = -1;
-	g_signal_pid = 0;
 	signals();
 }
+
 bool	empty_line(char *line)
 {
 	int	i;
@@ -112,7 +110,6 @@ int	main(int ac, char **av, char **env)
 			free_all(&data, PIPE_ERROR, EXT_PIPE);
 		}
 		free_part(&data);
-		g_signal_pid = 0;
 	}
 	free_all(&data, NULL, -1);
 	return (0);

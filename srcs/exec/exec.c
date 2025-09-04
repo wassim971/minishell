@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:19:29 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 18:07:58 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/04 20:52:53 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,34 +56,47 @@ static void	parent_process(t_data *data, t_cmd *cmd, int *pip)
 // 	return (true);
 // }
 
-static bool	exec_cmd(t_data **data, t_cmd **cmd, int *pip)
+void	close_infile(t_cmd *cmd)
 {
-	close((*cmd)->infile);
-	(*cmd)->pid = fork();
-	get_cmd((*cmd), 0);
-	if ((*cmd)->pid < 0)
+	t_cmd *save;
+
+	save = cmd;
+	cmd = cmd->next;
+	while(cmd != save)
+	{
+		close(cmd->infile);
+		cmd = cmd->next;
+	}
+}
+
+
+static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
+{
+	cmd->pid = fork();
+	get_cmd(cmd, 0);
+	if (cmd->pid < 0)
 	{
 		perror("fork");
-		(*data)->exit_code = 1;
+		data->exit_code = 1;
 		return (false);
 	}
-	else if ((*cmd)->pid == 0)
+	else if (cmd->pid == 0)
 	{
+		close_infile(cmd);
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
-		if ((*cmd)->cmd_param && (*cmd)->cmd_param[0])
-			child_process(&(*data), &(*cmd), pip);
+		if (cmd->cmd_param && cmd->cmd_param[0])
+			child_process(data, cmd, pip);
 		else
 		{
-			close((*cmd)->infile);
-			(*data)->exit_code = 1;
-			free_all((*data), NULL, 0);
+			data->exit_code = 1;
+			free_all(data, NULL, 0);
 		}
 	}
 	else
 	{
-		get_cmd((*cmd), 0);
-		parent_process((*data), (*cmd), pip);
+		get_cmd(cmd, 0);
+		parent_process(data, cmd, pip);
 	}
 	return (true);
 }
@@ -113,7 +126,7 @@ static bool	exec_cmd(t_data **data, t_cmd **cmd, int *pip)
 // 	}
 // }
 
-void	wait_all(t_data **data)
+void	wait_all(t_data *data)
 {
 	int		status;
 	t_cmd	*tmp;
@@ -122,8 +135,8 @@ void	wait_all(t_data **data)
 	int		sig;
 
 	jsp = 1;
-	tmp = (*data)->cmd;
-	while (jsp || tmp != (*data)->cmd)
+	tmp = data->cmd;
+	while (jsp || tmp != data->cmd)
 	{
 		jsp = 0;
 		pid = waitpid(tmp->pid, &status, 0);
@@ -132,11 +145,11 @@ void	wait_all(t_data **data)
 			sig = WTERMSIG(status);
 			if (sig == SIGQUIT)
 				write(2, "Quit (core dumped)\n", 19);
-			(*data)->exit_code = 131;
+			data->exit_code = 131;
 		}
-		if (pid == tmp->pid && WIFEXITED(status) && (*data)->exit_code != 130
-			&& (*data)->exit_code != 1)
-			(*data)->exit_code = WEXITSTATUS(status);
+		if (pid == tmp->pid && WIFEXITED(status) && data->exit_code != 130
+			&& data->exit_code != 1)
+			data->exit_code = WEXITSTATUS(status);
 		if (tmp->outfile >= 0)
 			close(tmp->outfile);
 		if (tmp->infile >= 0)
@@ -154,18 +167,18 @@ bool	exec(t_data *data)
 	tmp = data->cmd;
 	if (tmp && tmp->skip_cmd == false && tmp->next == tmp && tmp->cmd_param[0]
 		&& is_builtin(tmp->cmd_param[0]))
-		return (launch_builtin(&data, &tmp));
+		return (launch_builtin(data, tmp));
 	if (pipe(pip) == -1)
 		return (false);
-	exec_cmd(&data, &tmp, pip);
+	exec_cmd(data, tmp, pip);
 	tmp = tmp->next;
 	while (tmp != data->cmd)
 	{
 		if (pipe(pip) == -1)
 			return (-1);
-		exec_cmd(&data, &tmp, pip);
+		exec_cmd(data, tmp, pip);
 		tmp = tmp->next;
 	}
-	wait_all(&data);
+	wait_all(data);
 	return (true);
 }

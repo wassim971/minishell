@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 10:51:04 by wbaali            #+#    #+#             */
-/*   Updated: 2025/07/29 18:26:55 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/04 20:47:19 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ char	*ft_strdup(const char *s1)
 		i++;
 	}
 	new[i] = '\0';
+	free(s1);
 	return (new);
 }

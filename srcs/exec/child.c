@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:43:02 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 18:06:01 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/04 18:56:29 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,40 +71,40 @@ static void	redirect_in_out(t_data *data, t_cmd *cmd, int *pip)
 	close(pip[1]);
 }
 
-static void	built(int *pip, t_cmd **cmd, t_data **data)
+static void	built(int *pip, t_cmd *cmd, t_data *data)
 {
 	close(pip[0]);
-	if ((*cmd)->outfile < 0 && (*cmd)->next != (*data)->cmd)
-		(*cmd)->outfile = pip[1];
+	if (cmd->outfile < 0 && cmd->next != data->cmd)
+		cmd->outfile = pip[1];
 	else
 		close(pip[1]);
-	launch_builtin(&(*data), &(*cmd));
+	launch_builtin(data, cmd);
 }
 
-void	child_process(t_data **data, t_cmd **cmd, int *pip)
+void	child_process(t_data *data, t_cmd *cmd, int *pip)
 {
 	char	*path;
 	char	**env;
 
 	path = NULL;
-	if ((*cmd)->skip_cmd)
-		(*data)->exit_code = 1;
-	else if (is_builtin((*cmd)->cmd_param[0]))
-		built(pip, &(*cmd), &(*data));
-	else if (cmd_exist(&path, (*data), (*cmd)->cmd_param[0]))
+	if (cmd->skip_cmd)
+		data->exit_code = 1;
+	else if (is_builtin(cmd->cmd_param[0]))
+		built(pip, cmd, data);
+	else if (cmd_exist(&path, data, cmd->cmd_param[0]))
 	{
-		redirect_in_out((*data), (*cmd), pip);
-		env = lst_to_arr((*data)->env);
+		redirect_in_out(data, cmd, pip);
+		env = lst_to_arr(data->env);
 		if (!env)
-			free_all((*data), MALLOC_ERROR, EXT_MALLOC);
+			free_all(data, MALLOC_ERROR, EXT_MALLOC);
 		rl_clear_history();
 		signals2();
-		execve(path, (*cmd)->cmd_param, env);
+		execve(path, cmd->cmd_param, env);
 		perror(path);
-		(*data)->exit_code = 1;
+		data->exit_code = 1;
 		free(env);
 	}
 	if (path)
 		free(path);
-	free_all((*data), NULL, (*data)->exit_code);
+	free_all(data, NULL, data->exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:54:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 20:46:25 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:57:54 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,36 @@ static int	length_cmd(char *command, int *quotes)
 	return (i);
 }
 
+// static bool	add_cmd(t_token **begin, char **command)
+// {
+// 	char	*str;
+// 	int		length;
+// 	int		quotes;
+// 	int		i;
+
+// 	i = 0;
+// 	length = length_cmd(*command, &quotes);
+// 	if (((length) - (2 * quotes)) < 0)
+// 		return (true);
+// 	str = malloc(sizeof(char) * ((length + 1) - (2 * quotes)));
+// 	if (!str)
+// 		return (false);
+// 	copy_token(*command, length - (2 * quotes), str, i);
+// 	if (!append_token(begin, &str, 0, quotes))
+// 		return (free(str), false);
+// 	if ((*begin)->prev == (*begin) || (*begin)->prev->prev->type == PIPE)
+// 		(*begin)->prev->type = CMD;
+// 	else if ((*begin)->prev->type == 147)
+// 	{
+// 		(*command) += length;
+// 		return (true);
+// 	}
+// 	else
+// 		(*begin)->prev->type = ARG;
+// 	(*command) += length;
+// 	return (true);
+// }
+
 static bool	add_cmd(t_token **begin, char **command)
 {
 	char	*str;
@@ -76,21 +106,18 @@ static bool	add_cmd(t_token **begin, char **command)
 
 	i = 0;
 	length = length_cmd(*command, &quotes);
-	if (((length) - (2 * quotes)) < 0)
+	if ((length - 2 * quotes) < 0)
 		return (true);
-	str = malloc(sizeof(char) * ((length + 1) - (2 * quotes)));
+	str = malloc(sizeof(char) * (length + 1 - 2 * quotes));
 	if (!str)
 		return (false);
-	copy_token(*command, length - (2 * quotes), str, i);
+	copy_token(*command, length - 2 * quotes, str, i);
 	if (!append_token(begin, &str, 0, quotes))
 		return (free(str), false);
-	if ((*begin)->prev == (*begin) || (*begin)->prev->prev->type == PIPE)
+	if ((*begin)->prev == *begin || (*begin)->prev->prev->type == PIPE)
 		(*begin)->prev->type = CMD;
 	else if ((*begin)->prev->type == 147)
-	{
-		(*command) += length;
-		return (true);
-	}
+		return ((*command) += length, true);
 	else
 		(*begin)->prev->type = ARG;
 	(*command) += length;

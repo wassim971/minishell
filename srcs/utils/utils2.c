@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:43:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/26 15:01:16 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/05 19:43:46 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,23 @@ char	*ft_strjoin_frees(char *s1, char *s2)
 	tmp = ft_strjoin(s1, s2);
 	free(s2);
 	return (tmp);
+}
+
+size_t	len_list(t_mini_list *list)
+{
+	t_mini_list	*tmp;
+	size_t		i;
+
+	if ((list))
+	{
+		tmp = list;
+		i = 1;
+		while (tmp->next != list)
+		{
+			++i;
+			tmp = tmp->next;
+		}
+		return (i);
+	}
+	return (0);
 }

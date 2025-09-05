@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal2.c                                          :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 16:27:00 by ainthana          #+#    #+#             */
-/*   Updated: 2025/09/05 19:13:26 by ainthana         ###   ########.fr       */
+/*   Created: 2025/09/05 19:45:47 by ainthana          #+#    #+#             */
+/*   Updated: 2025/09/05 20:24:27 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	handle_sigpipe(int sig)
+void	*free_cmd_param(char **cmd, int i)
 {
-	t_data	*data;
-
-	(void)sig;
-	data = get_data(NULL);
-	free_all(data, NULL, 0);
-	exit(1);
+	while (--i != -1)
+		free(cmd[i]);
+	free(cmd);
+	return (NULL);
 }
 
-bool	empty_line(char *line)
+bool	check_pipe(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && is_space(line[i]))
-		i++;
-	if (i == (int)ft_strlen(line))
+	if (data->token->type == PIPE)
 	{
-		free(line);
-		return (true);
+		write(2, "syntax error near unexpected token '|'\n", 39);
+		free_token(&data->token);
+		free_cmd(&data->cmd);
+		return (false);
 	}
-	return (false);
+	return (true);
 }

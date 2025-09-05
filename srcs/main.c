@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:44:50 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:24:36 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,6 @@ void	init_data(t_data *data)
 	data->pip[0] = -1;
 	data->pip[1] = -1;
 	signals();
-}
-
-bool	empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && is_space(line[i]))
-		i++;
-	if (i == (int)ft_strlen(line))
-	{
-		free(line);
-		return (true);
-	}
-	return (false);
 }
 
 static int	casspe(int ac, char **av)

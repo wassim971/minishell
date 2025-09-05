@@ -6,30 +6,11 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:52:14 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 11:57:01 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:43:53 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-size_t	len_list(t_mini_list *list)
-{
-	t_mini_list	*tmp;
-	size_t		i;
-
-	if ((list))
-	{
-		tmp = list;
-		i = 1;
-		while (tmp->next != list)
-		{
-			++i;
-			tmp = tmp->next;
-		}
-		return (i);
-	}
-	return (0);
-}
 
 static int	list_new_elem_str(t_mini_list **new, char *elem)
 {

@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:07:46 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:56:20 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,53 +95,50 @@ int	replace_dollar(char **line, t_data *data)
 	return (1);
 }
 
-// void	print_cmd(t_cmd *token)
+// bool	parseline(t_data *data, char *line)
 // {
-// 	t_cmd	*tmp;
-// 	int		i;
-
-// 	if (!token)
+// 	if (open_quote(data, line))
 // 	{
-// 		printf("Token list is empty.\n");
-// 		return ;
+// 		free(line);
+// 		return (false);
 // 	}
-// 	tmp = token;
-// 	while (tmp->next && tmp->next != token)
+// 	if (!replace_dollar(&line, data) || !create_list_token(&data->token, line))
 // 	{
-// 		i = 0;
-// 		printf("Type cmd : ");
-// 		while (tmp->cmd_param[i])
+// 		if (line[0] == '\0')
 // 		{
-// 			printf("%s ; %d", tmp->cmd_param[i], tmp->skip_cmd);
-// 			i++;
+// 			free(line);
+// 			return (false);
 // 		}
-// 		printf("\n");
-// 		tmp = tmp->next;
+// 		free(line);
+// 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 // 	}
-// 	i = 0;
-// 	printf("Type cmd : ");
-// 	while (tmp->cmd_param[i])
+// 	free(line);
+// 	free(data->last_cmd);
+// 	data->last_cmd = ft_strdup(data->token->prev->str);
+// 	if (data->token && data->token->prev->type == PIPE)
 // 	{
-// 		printf("%s ; %d", tmp->cmd_param[i], tmp->skip_cmd);
-// 		i++;
+// 		write(2, "Error: Unclosed pipe\n", 21);
+// 		data->exit_code = 2;
+// 		free_token(&data->token);
+// 		return (false);
 // 	}
-// 	printf("\n");
+// 	if (!data->token || !create_list_cmd(data))
+// 	{
+// 		free_token(&data->token);
+// 		free_cmd(&data->cmd);
+// 		return (false);
+// 	}
+// 	return (check_pipe(data));
 // }
 
 bool	parseline(t_data *data, char *line)
 {
 	if (open_quote(data, line))
-	{
-		free(line);
-		return (false);
-	}
+		return (free(line), false);
 	if (!replace_dollar(&line, data) || !create_list_token(&data->token, line))
 	{
 		if (line[0] == '\0')
-		{
-			free(line);
-			return (false);
-		}
+			return (free(line), false);
 		free(line);
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 	}
@@ -156,10 +153,6 @@ bool	parseline(t_data *data, char *line)
 		return (false);
 	}
 	if (!data->token || !create_list_cmd(data))
-	{
-		free_token(&data->token);
-		free_cmd(&data->cmd);
-		return (false);
-	}
+		return (free_token(&data->token), free_cmd(&data->cmd), false);
 	return (check_pipe(data));
 }

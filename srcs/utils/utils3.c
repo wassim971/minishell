@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:27:38 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 12:09:37 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:24:02 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,53 +43,76 @@ static int	add_to_cmd_param(char **cmd_param, int *i, char *str)
 	return (1);
 }
 
-static void	*free_cmd_param(char **cmd, int i)
+// char	**get_param(t_data *data, t_token *token)
+// {
+// 	char		**cmd_param;
+// 	int			i;
+// 	t_token		*tmp;
+
+// 	i = 0;
+// 	cmd_param = malloc(sizeof(char *) * (count_args(data, token) + 1));
+// 	if (cmd_param == NULL)
+// 		return (NULL);
+// 	tmp = token;
+// 	if (tmp->type != PIPE
+// 		&& (tmp->type == CMD
+// 			|| (tmp->type == ARG && tmp->prev != data->token->prev
+// 				&& tmp->prev->type > 5))
+// 		&& !add_to_cmd_param(cmd_param, &i, tmp->str))
+// 		return (free_cmd_param(cmd_param, i));
+// 	tmp = tmp->next;
+// 	while (tmp != data->token && tmp->type != PIPE)
+// 	{
+// 		if ((tmp->type == CMD
+// 				|| (tmp->type == ARG && tmp->prev != data->token->prev
+// 					&& tmp->prev->type > 5))
+// 			&& !add_to_cmd_param(cmd_param, &i, tmp->str))
+// 			return (free_cmd_param(cmd_param, i));
+// 		tmp = tmp->next;
+// 	}
+// 	cmd_param[i] = NULL;
+// 	return (cmd_param);
+// }
+
+static int	process_token(t_data *data, t_token *token,
+					char **cmd_param, int *i)
 {
-	while (--i != -1)
-		free(cmd[i]);
-	free(cmd);
-	return (NULL);
+	if ((token->type == CMD
+			|| (token->type == ARG && token->prev != data->token->prev
+				&& token->prev->type > 5))
+		&& !add_to_cmd_param(cmd_param, i, token->str))
+		return (0);
+	return (1);
 }
 
-bool	check_pipe(t_data *data)
+static int	fill_cmd_param(t_data *data, t_token *token,
+					char **cmd_param, int *i)
 {
-	if (data->token->type == PIPE)
+	t_token	*tmp;
+
+	tmp = token->next;
+	while (tmp != data->token && tmp->type != PIPE)
 	{
-		write(2, "syntax error near unexpected token '|'\n", 39);
-		free_token(&data->token);
-		free_cmd(&data->cmd);
-		return (false);
+		if (!process_token(data, tmp, cmd_param, i))
+			return (0);
+		tmp = tmp->next;
 	}
-	return (true);
+	return (1);
 }
 
 char	**get_param(t_data *data, t_token *token)
 {
-	char		**cmd_param;
-	int			i;
-	t_token		*tmp;
+	char	**cmd_param;
+	int		i;
 
 	i = 0;
 	cmd_param = malloc(sizeof(char *) * (count_args(data, token) + 1));
-	if (cmd_param == NULL)
+	if (!cmd_param)
 		return (NULL);
-	tmp = token;
-	if (tmp->type != PIPE
-		&& (tmp->type == CMD
-			|| (tmp->type == ARG && tmp->prev != data->token->prev
-				&& tmp->prev->type > 5))
-		&& !add_to_cmd_param(cmd_param, &i, tmp->str))
+	if (token->type != PIPE && !process_token(data, token, cmd_param, &i))
 		return (free_cmd_param(cmd_param, i));
-	tmp = tmp->next;
-	while (tmp != data->token && tmp->type != PIPE)
-	{
-		if ((tmp->type == CMD
-				|| (tmp->type == ARG && tmp->prev != data->token->prev
-					&& tmp->prev->type > 5))
-			&& !add_to_cmd_param(cmd_param, &i, tmp->str))
-			return (free_cmd_param(cmd_param, i));
-		tmp = tmp->next;
-	}
+	if (!fill_cmd_param(data, token, cmd_param, &i))
+		return (NULL);
 	cmd_param[i] = NULL;
 	return (cmd_param);
 }

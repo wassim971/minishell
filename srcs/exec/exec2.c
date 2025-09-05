@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/05 19:16:07 by ainthana          #+#    #+#             */
+/*   Updated: 2025/09/05 19:25:26 by ainthana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/minishell.h"
+
+void	close_infile(t_cmd *cmd)
+{
+	t_cmd	*save;
+
+	save = cmd;
+	cmd = cmd->next;
+	while (cmd != save)
+	{
+		if (cmd->infile > 0)
+			close(cmd->infile);
+		cmd->infile = -2;
+		if (cmd->outfile > 0)
+			close(cmd->outfile);
+		cmd->outfile = -2;
+		cmd = cmd->next;
+	}
+}
+
+bool	is_builtin(char *cmd)
+{
+	if (!cmd)
+		return (false);
+	if (!ft_strncmp("echo", cmd, INT_MAX) || !ft_strncmp("cd", cmd, INT_MAX)
+		|| !ft_strncmp("pwd", cmd, INT_MAX) || !ft_strncmp("export", cmd,
+			INT_MAX) || !ft_strncmp("unset", cmd, INT_MAX) || !ft_strncmp("env",
+			cmd, INT_MAX) || !ft_strncmp("exit", cmd, INT_MAX))
+		return (true);
+	return (false);
+}
+
+void	parent_process(t_data *data, t_cmd *cmd, int *pip)
+{
+	close(pip[1]);
+	if (cmd->infile >= 0)
+		close(cmd->infile);
+	if (cmd->outfile >= 0)
+		close(cmd->outfile);
+	if (cmd->infile == -2)
+		cmd->infile = pip[0];
+	if (cmd->next != data->cmd && cmd->next->infile == -2)
+		cmd->next->infile = pip[0];
+	else
+		close(pip[0]);
+}

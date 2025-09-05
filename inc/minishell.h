@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 16:30:33 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:23:51 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,12 @@ int						add_chars(char *c, char **str, t_data *data,
 char					*ft_strjoin_frees(char *s1, char *s2);
 t_data					*get_data(t_data *data);
 t_cmd					*get_cmd(t_cmd *cmd, int state);
-void handle_sigpipe(int sig);
+void					handle_sigpipe(int sig);
+void					launch_child(t_data *data, t_cmd *cmd, int *pip);
+void					close_infile(t_cmd *cmd);
+bool					empty_line(char *line);
+void					parent_process(t_data *data, t_cmd *cmd, int *pip);
+int						replace_dollars(char **line, t_data *data);
+void					*free_cmd_param(char **cmd, int i);
 
 #endif

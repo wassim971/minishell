@@ -6,7 +6,7 @@
 #    By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 14:49:09 by wbaali            #+#    #+#              #
-#    Updated: 2025/09/05 16:31:54 by ainthana         ###   ########.fr        #
+#    Updated: 2025/09/05 20:02:21 by ainthana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,11 @@ SRC = \
 	srcs/main.c \
 	srcs/exec/cmd.c \
 	srcs/env/env.c \
-	srcs/parsing/expend.c srcs/parsing/expend1.c srcs/parsing/expend2.c srcs/parsing/get.c srcs/parsing/parsing.c \
+	srcs/parsing/expend.c srcs/parsing/expend1.c srcs/parsing/expend2.c srcs/parsing/expend3.c srcs/parsing/get.c srcs/parsing/parsing.c \
 	srcs/parsing/signal.c srcs/parsing/token.c srcs/parsing/signal2.c \
 	srcs/utils/free.c srcs/utils/free2.c srcs/utils/print.c srcs/utils/liste.c \
-	srcs/utils/utils1.c srcs/utils/utils2.c srcs/utils/utils3.c srcs/utils/liste_utils.c srcs/utils/liste_utils2.c\
-	srcs/exec/exec_utils.c srcs/exec/builtin.c srcs/exec/child.c srcs/exec/exec.c srcs/exec/find.c srcs/exec/exec_utils2.c\
+	srcs/utils/utils1.c srcs/utils/utils2.c srcs/utils/utils3.c srcs/utils/utils4.c srcs/utils/liste_utils.c srcs/utils/liste_utils2.c srcs/utils/liste_utils3.c \
+	srcs/exec/exec_utils.c srcs/exec/builtin.c srcs/exec/child.c srcs/exec/exec.c srcs/exec/exec2.c srcs/exec/find.c srcs/exec/exec_utils2.c\
 	srcs/builtin/ft_cd.c srcs/builtin/ft_echo.c srcs/builtin/ft_env.c srcs/builtin/ft_exit.c srcs/builtin/ft_export.c\
 	srcs/builtin/ft_pwd.c srcs/builtin/ft_unset.c\
 	

@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:10:57 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:16:40 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:54:57 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,55 @@ static int	open_file(t_data *data, char *filename, int type)
 	return (fd);
 }
 
+// static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
+// {
+// 	if (tmp->type == INPUT)
+// 	{
+// 		if (cmd->infile >= 0)
+// 			close(cmd->infile);
+// 		if (tmp == tmp->next || tmp->next->type <= 6)
+// 			return (print_error_token(tmp, data));
+// 		cmd->infile = open_file(data, tmp->next->str, INPUT);
+// 		if (cmd->infile == -1)
+// 		{
+// 			cmd->skip_cmd = true;
+// 			return (false);
+// 		}
+// 	}
+// 	else if (tmp->type == HEREDOC)
+// 	{
+// 		if (cmd->infile >= 0)
+// 			close(cmd->infile);
+// 		if (tmp == tmp->next || tmp->next->type <= 6)
+// 			return (print_error_token(tmp, data));
+// 		cmd->infile = open_file(data, tmp->next->str, HEREDOC);
+// 		if (cmd->infile == -1)
+// 		{
+// 			cmd->skip_cmd = true;
+// 			return (false);
+// 		}
+// 	}
+// 	return (true);
+// }
+
 static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
 {
-	if (tmp->type == INPUT)
+	int		type;
+	int		*fd;
+
+	if (tmp->type != INPUT && tmp->type != HEREDOC)
+		return (true);
+	fd = &cmd->infile;
+	type = tmp->type;
+	if (*fd >= 0)
+		close(*fd);
+	if (tmp == tmp->next || tmp->next->type <= 6)
+		return (print_error_token(tmp, data));
+	*fd = open_file(data, tmp->next->str, type);
+	if (*fd == -1)
 	{
-		if (cmd->infile >= 0)
-			close(cmd->infile);
-		if (tmp == tmp->next || tmp->next->type <= 6)
-			return (print_error_token(tmp, data));
-		cmd->infile = open_file(data, tmp->next->str, INPUT);
-		if (cmd->infile == -1)
-		{
-			cmd->skip_cmd = true;
-			return (false);
-		}
-	}
-	else if (tmp->type == HEREDOC)
-	{
-		if (cmd->infile >= 0)
-			close(cmd->infile);
-		if (tmp == tmp->next || tmp->next->type <= 6)
-			return (print_error_token(tmp, data));
-		cmd->infile = open_file(data, tmp->next->str, HEREDOC);
-		if (cmd->infile == -1)
-		{
-			cmd->skip_cmd = true;
-			return (false);
-		}
+		cmd->skip_cmd = true;
+		return (false);
 	}
 	return (true);
 }
@@ -89,33 +111,55 @@ bool	get_infile(t_data *data, t_token *token, t_cmd *cmd)
 	return (true);
 }
 
+// static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
+// {
+// 	if (tmp->type == TRUNC)
+// 	{
+// 		if (cmd->outfile >= 0)
+// 			close(cmd->outfile);
+// 		if (tmp == tmp->next || tmp->next->type <= 6)
+// 			return (print_error_token(tmp, data));
+// 		cmd->outfile = open_file(NULL, tmp->next->str, TRUNC);
+// 		if (cmd->outfile == -1)
+// 		{
+// 			cmd->skip_cmd = true;
+// 			return (false);
+// 		}
+// 	}
+// 	else if (tmp->type == APPEND)
+// 	{
+// 		if (cmd->outfile >= 0)
+// 			close(cmd->outfile);
+// 		if (tmp == tmp->next || tmp->next->type <= 6)
+// 			return (print_error_token(tmp, data));
+// 		cmd->outfile = open_file(NULL, tmp->next->str, APPEND);
+// 		if (cmd->outfile == -1)
+// 		{
+// 			cmd->skip_cmd = true;
+// 			return (false);
+// 		}
+// 	}
+// 	return (true);
+// }
+
 static bool	get_out(t_token *tmp, t_cmd *cmd, t_data *data)
 {
-	if (tmp->type == TRUNC)
+	int		type;
+	int		*fd;
+
+	if (tmp->type != TRUNC && tmp->type != APPEND)
+		return (true);
+	fd = &cmd->outfile;
+	type = tmp->type;
+	if (*fd >= 0)
+		close(*fd);
+	if (tmp == tmp->next || tmp->next->type <= 6)
+		return (print_error_token(tmp, data));
+	*fd = open_file(data, tmp->next->str, type);
+	if (*fd == -1)
 	{
-		if (cmd->outfile >= 0)
-			close(cmd->outfile);
-		if (tmp == tmp->next || tmp->next->type <= 6)
-			return (print_error_token(tmp, data));
-		cmd->outfile = open_file(NULL, tmp->next->str, TRUNC);
-		if (cmd->outfile == -1)
-		{
-			cmd->skip_cmd = true;
-			return (false);
-		}
-	}
-	else if (tmp->type == APPEND)
-	{
-		if (cmd->outfile >= 0)
-			close(cmd->outfile);
-		if (tmp == tmp->next || tmp->next->type <= 6)
-			return (print_error_token(tmp, data));
-		cmd->outfile = open_file(NULL, tmp->next->str, APPEND);
-		if (cmd->outfile == -1)
-		{
-			cmd->skip_cmd = true;
-			return (false);
-		}
+		cmd->skip_cmd = true;
+		return (false);
 	}
 	return (true);
 }

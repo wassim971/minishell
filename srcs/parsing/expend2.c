@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:08:31 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 11:53:12 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:32:57 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,25 @@ int	append_substr(char **dest, char *src, int len)
 	return (1);
 }
 
-int	exist_in_env(char *line, int *i, t_data *data)
+static int	is_special_var(char c)
+{
+	return (c == '?' || c == '$' || c == '\'' || c == '"');
+}
+
+static int	search_env_var(char *line, int *i, t_data *data)
 {
 	t_mini_list	*tmp;
 	t_mini_list	*start;
 	int			var_len;
 
-	if (line[*i + 1] == '?' || line[*i + 1] == '$' || line[*i + 1] == '\''
-		|| line[*i + 1] == '"')
-		return (2);
 	tmp = data->env;
 	start = tmp;
 	while (tmp)
 	{
 		var_len = ft_strchr(tmp->str, '=') - tmp->str;
 		if (ft_strncmp(tmp->str, &line[*i + 1], var_len) == 0
-			&& !ft_isalnum(line[*i + 1 + var_len]) && line[*i + 1
-				+ var_len] != '_')
+			&& !ft_isalnum(line[*i + 1 + var_len])
+			&& line[*i + 1 + var_len] != '_')
 		{
 			*i += var_len + 1;
 			return (1);
@@ -52,8 +54,53 @@ int	exist_in_env(char *line, int *i, t_data *data)
 		if (tmp == start)
 			break ;
 	}
+	return (0);
+}
+
+static void	skip_varname(char *line, int *i)
+{
 	while (ft_isalnum(line[*i + 1]) || line[*i + 1] == '_')
 		(*i)++;
 	(*i)++;
+}
+
+int	exist_in_env(char *line, int *i, t_data *data)
+{
+	if (is_special_var(line[*i + 1]))
+		return (2);
+	if (search_env_var(line, i, data))
+		return (1);
+	skip_varname(line, i);
 	return (0);
 }
+
+// int	exist_in_env(char *line, int *i, t_data *data)
+// {
+// 	t_mini_list	*tmp;
+// 	t_mini_list	*start;
+// 	int			var_len;
+
+// 	if (line[*i + 1] == '?' || line[*i + 1] == '$' || line[*i + 1] == '\''
+// 		|| line[*i + 1] == '"')
+// 		return (2);
+// 	tmp = data->env;
+// 	start = tmp;
+// 	while (tmp)
+// 	{
+// 		var_len = ft_strchr(tmp->str, '=') - tmp->str;
+// 		if (ft_strncmp(tmp->str, &line[*i + 1], var_len) == 0
+// 			&& !ft_isalnum(line[*i + 1 + var_len]) && line[*i + 1
+// 				+ var_len] != '_')
+// 		{
+// 			*i += var_len + 1;
+// 			return (1);
+// 		}
+// 		tmp = tmp->next;
+// 		if (tmp == start)
+// 			break ;
+// 	}
+// 	while (ft_isalnum(line[*i + 1]) || line[*i + 1] == '_')
+// 		(*i)++;
+// 	(*i)++;
+// 	return (0);
+// }

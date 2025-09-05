@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 17:17:41 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:20:09 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,32 @@ void	update_shlvl(t_data *data)
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 }
 
+static void	shell_loop(t_data *data)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("minironflex> ");
+		if (!line)
+			free_all(data, "exit\n", data->exit_code);
+		if (empty_line(line))
+			continue ;
+		add_history(line);
+		if (!parseline(data, line))
+			continue ;
+		if (!exec(data))
+		{
+			free(line);
+			free_all(data, PIPE_ERROR, EXT_PIPE);
+		}
+		free_part(data);
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-	char	*line;
 
 	// if (casspe(ac, av))
 	// 	return (1);
@@ -94,23 +116,6 @@ int	main(int ac, char **av, char **env)
 	if (!make_env(&data, env))
 		free_all(&data, MALLOC_ERROR, EXT_MALLOC);
 	update_shlvl(&data);
-	while (1)
-	{
-		line = readline("minironflex> ");
-		if (!line)
-			free_all(&data, "exit\n", data.exit_code);
-		if (empty_line(line))
-			continue ;
-		add_history(line);
-		if (!parseline(&data, line))
-			continue ;
-		if (!exec(&data))
-		{
-			free(line);
-			free_all(&data, PIPE_ERROR, EXT_PIPE);
-		}
-		free_part(&data);
-	}
-	free_all(&data, NULL, -1);
+	shell_loop(&data);
 	return (0);
 }

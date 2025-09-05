@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:37:17 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 11:52:51 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:31:02 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,22 @@ static int	dollar_point_interrogation(t_data *data, char **str)
 	return (1);
 }
 
+static int	skip_invalid_dollar(char *line, int *index)
+{
+	int	start;
+
+	start = *index;
+	(*index)++;
+	while (line[*index] && (ft_isalnum(line[*index]) || line[*index] == '_'))
+		(*index)++;
+	line[start] = '\0';
+	return (1);
+}
+
 int	add_dollar(char *line, int *index, char **str, t_data *data)
 {
 	int	ctrl;
 	int	n;
-	int	start;
 
 	n = *index;
 	ctrl = exist_in_env(line, index, data);
@@ -116,14 +127,36 @@ int	add_dollar(char *line, int *index, char **str, t_data *data)
 		(*index) += 2;
 		return (dollar_point_interrogation(data, str));
 	}
-	else
-	{
-		start = *index;
-		(*index)++;
-		while (line[*index] && (ft_isalnum(line[*index])
-				|| line[*index] == '_'))
-			(*index)++;
-		line[start] = '\0';
-		return (1);
-	}
+	return (skip_invalid_dollar(line, index));
 }
+
+// int	add_dollar(char *line, int *index, char **str, t_data *data)
+// {
+// 	int	ctrl;
+// 	int	n;
+// 	int	start;
+
+// 	n = *index;
+// 	ctrl = exist_in_env(line, index, data);
+// 	*index = n;
+// 	if (ctrl == 1)
+// 	{
+// 		*index += ft_strlen_exp(line + n);
+// 		return (in_env(data, &line[n], ft_strlen_exp(line + n), str));
+// 	}
+// 	else if (ctrl == 2)
+// 	{
+// 		(*index) += 2;
+// 		return (dollar_point_interrogation(data, str));
+// 	}
+// 	else
+// 	{
+// 		start = *index;
+// 		(*index)++;
+// 		while (line[*index] && (ft_isalnum(line[*index])
+// 				|| line[*index] == '_'))
+// 			(*index)++;
+// 		line[start] = '\0';
+// 		return (1);
+// 	}
+// }

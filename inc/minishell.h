@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 18:56:52 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:30:33 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ int						add_chars(char *c, char **str, t_data *data,
 char					*ft_strjoin_frees(char *s1, char *s2);
 t_data					*get_data(t_data *data);
 t_cmd					*get_cmd(t_cmd *cmd, int state);
+void handle_sigpipe(int sig);
 
 #endif

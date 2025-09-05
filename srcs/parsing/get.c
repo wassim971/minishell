@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 01:10:57 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 19:10:29 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:16:40 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static int	open_file(t_data *data, char *filename, int type)
 	else if (type == APPEND)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (type != HEREDOC && fd < 0)
+	{
+		data->exit_code = 1;
 		perror(filename);
+	}
 	return (fd);
 }
 

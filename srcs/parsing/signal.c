@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:28:30 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 11:54:15 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:38:20 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	handle_sigsegv(int code)
 	(void)code;
 	write(2, "Segmentation fault\n", 19);
 	rl_clear_history();
-	exit(11);
+	exit(1);
 }
 
 static void	handle_sigabrt(int code)

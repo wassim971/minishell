@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:19:29 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 20:52:53 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:33:18 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,37 @@ static void	parent_process(t_data *data, t_cmd *cmd, int *pip)
 
 void	close_infile(t_cmd *cmd)
 {
-	t_cmd *save;
+	t_cmd	*save;
 
 	save = cmd;
 	cmd = cmd->next;
-	while(cmd != save)
+	while (cmd != save)
 	{
-		close(cmd->infile);
+		if (cmd->infile > 0)
+			close(cmd->infile);
+		cmd->infile = -2;
+		if (cmd->outfile > 0)
+			close(cmd->outfile);
+		cmd->outfile = -2;
 		cmd = cmd->next;
 	}
 }
 
+static void	launch_child(t_data *data, t_cmd *cmd, int *pip)
+{
+	close_infile(cmd);
+	get_data(data);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGPIPE, handle_sigpipe); 
+	if (cmd->cmd_param && cmd->cmd_param[0])
+		child_process(data, cmd, pip);
+	else
+	{
+		data->exit_code = 1;
+		free_all(data, NULL, data->exit_code);
+	}
+}
 
 static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 {
@@ -82,16 +102,10 @@ static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 	}
 	else if (cmd->pid == 0)
 	{
-		close_infile(cmd);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		if (cmd->cmd_param && cmd->cmd_param[0])
-			child_process(data, cmd, pip);
-		else
-		{
-			data->exit_code = 1;
-			free_all(data, NULL, 0);
-		}
+		if(data->token)
+			free_token(&data->token);
+		launch_child(data, cmd, pip);
+		free_all(data, NULL, data->exit_code);
 	}
 	else
 	{
@@ -100,6 +114,37 @@ static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 	}
 	return (true);
 }
+
+// static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
+// {
+// 	cmd->pid = fork();
+// 	get_cmd(cmd, 0);
+// 	if (cmd->pid < 0)
+// 	{
+// 		perror("fork");
+// 		data->exit_code = 1;
+// 		return (false);
+// 	}
+// 	else if (cmd->pid == 0)
+// 	{
+// 		close_infile(cmd);
+// 		signal(SIGQUIT, SIG_DFL);
+// 		signal(SIGINT, SIG_DFL);
+// 		if (cmd->cmd_param && cmd->cmd_param[0])
+// 			child_process(data, cmd, pip);
+// 		else
+// 		{
+// 			data->exit_code = 1;
+// 			free_all(data, NULL, 0);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		get_cmd(cmd, 0);
+// 		parent_process(data, cmd, pip);
+// 	}
+// 	return (true);
+// }
 
 // static void	wait_all(t_data *data)
 // {
@@ -126,30 +171,35 @@ static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 // 	}
 // }
 
+static void	handle_child_status(t_data *data, int status)
+{
+	int	sig;
+
+	if (WIFSIGNALED(status))
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGQUIT)
+			write(2, "Quit (core dumped)\n", 19);
+		data->exit_code = 128 + sig;
+	}
+	else if (WIFEXITED(status) && data->exit_code != 130)
+		data->exit_code = WEXITSTATUS(status);
+}
+
 void	wait_all(t_data *data)
 {
 	int		status;
 	t_cmd	*tmp;
 	pid_t	pid;
-	bool	jsp;
-	int		sig;
+	bool	first;
 
-	jsp = 1;
+	first = true;
 	tmp = data->cmd;
-	while (jsp || tmp != data->cmd)
+	while (first || tmp != data->cmd)
 	{
-		jsp = 0;
+		first = false;
 		pid = waitpid(tmp->pid, &status, 0);
-		if (WIFSIGNALED(status))
-		{
-			sig = WTERMSIG(status);
-			if (sig == SIGQUIT)
-				write(2, "Quit (core dumped)\n", 19);
-			data->exit_code = 131;
-		}
-		if (pid == tmp->pid && WIFEXITED(status) && data->exit_code != 130
-			&& data->exit_code != 1)
-			data->exit_code = WEXITSTATUS(status);
+		handle_child_status(data, status);
 		if (tmp->outfile >= 0)
 			close(tmp->outfile);
 		if (tmp->infile >= 0)
@@ -157,6 +207,38 @@ void	wait_all(t_data *data)
 		tmp = tmp->next;
 	}
 }
+// wait_all trop long
+// void	wait_all(t_data *data)
+// {
+// 	int		status;
+// 	t_cmd	*tmp;
+// 	pid_t	pid;
+// 	bool	jsp;
+// 	int		sig;
+
+// 	jsp = 1;
+// 	tmp = data->cmd;
+// 	while (jsp || tmp != data->cmd)
+// 	{
+// 		jsp = 0;
+// 		pid = waitpid(tmp->pid, &status, 0);
+// 		if (WIFSIGNALED(status))
+// 		{
+// 			sig = WTERMSIG(status);
+// 			if (sig == SIGQUIT)
+// 				write(2, "Quit (core dumped)\n", 19);
+// 			data->exit_code = 131;
+// 		}
+// 		if (pid == tmp->pid && WIFEXITED(status) && data->exit_code != 130
+// 			&& data->exit_code != 1)
+// 			data->exit_code = WEXITSTATUS(status);
+// 		if (tmp->outfile >= 0)
+// 			close(tmp->outfile);
+// 		if (tmp->infile >= 0)
+// 			close(tmp->infile);
+// 		tmp = tmp->next;
+// 	}
+// }
 
 bool	exec(t_data *data)
 {

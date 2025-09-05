@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:48:41 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 19:00:13 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:11:49 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static bool	read_in_stdin(t_data *data, int fd, char *word)
 			print_error("(wanted '");
 			print_error(word);
 			print_error("')\n");
-			free(buf);
+			if(data->token)
+				free_token(&data->token);
 			break ;
 		}
 		if (!ft_strncmp(word, buf, INT_MAX))
@@ -146,6 +147,7 @@ int	here_doc(t_data *data, char *word)
 		signal(SIGINT, heredoc_sigint);
 		read_in_stdin(data, fd, word);
 		close(fd);
+		free_all(data, NULL, 0);
 		rl_clear_history();
 		exit(0);
 	}

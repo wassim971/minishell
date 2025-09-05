@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 10:51:04 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 12:14:41 by ainthana         ###   ########.fr       */
+/*   Created: 2025/09/05 16:27:00 by ainthana          #+#    #+#             */
+/*   Updated: 2025/09/05 16:29:55 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-char	*ft_strdup(const char *s1)
+void handle_sigpipe(int sig)
 {
-	char	*new;
-	size_t	i;
-
-	new = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		new[i] = s1[i];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
+    t_data *data;
+    (void)sig;
+    data = get_data(NULL);
+    free_all(data, NULL, 0);
+    exit(1);
 }

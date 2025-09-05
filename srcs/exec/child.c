@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:43:02 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/04 18:56:29 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:31:13 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	child_process(t_data *data, t_cmd *cmd, int *pip)
 		rl_clear_history();
 		signals2();
 		execve(path, cmd->cmd_param, env);
-		perror(path);
 		data->exit_code = 1;
+		perror(path);
 		free(env);
 	}
 	if (path)

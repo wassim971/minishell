@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:48:41 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 15:11:49 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:44:20 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static bool	read_in_stdin(t_data *data, int fd, char *word)
 			print_error("(wanted '");
 			print_error(word);
 			print_error("')\n");
-			if(data->token)
+			if (data->token)
 				free_token(&data->token);
 			break ;
 		}

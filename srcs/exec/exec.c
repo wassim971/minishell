@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:19:29 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:33:18 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:42:54 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	launch_child(t_data *data, t_cmd *cmd, int *pip)
 	get_data(data);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
-	signal(SIGPIPE, handle_sigpipe); 
+	signal(SIGPIPE, handle_sigpipe);
 	if (cmd->cmd_param && cmd->cmd_param[0])
 		child_process(data, cmd, pip);
 	else
@@ -102,7 +102,7 @@ static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 	}
 	else if (cmd->pid == 0)
 	{
-		if(data->token)
+		if (data->token)
 			free_token(&data->token);
 		launch_child(data, cmd, pip);
 		free_all(data, NULL, data->exit_code);

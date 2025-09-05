@@ -6,7 +6,7 @@
 /*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:20:09 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:44:50 by ainthana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ bool	empty_line(char *line)
 	return (false);
 }
 
-// static int	casspe(int ac, char **av)
-// {
-// 	(void)ac;
-// 	(void)av;
-// 	if (!isatty(STDOUT_FILENO))
-// 	{
-// 		write(STDERR_FILENO,
-// 			"Qu'est-ce que tu fais,chef ? Tu veux me ***** ou quoi ?\n", 56);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
+static int	casspe(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
+	if (!isatty(STDOUT_FILENO))
+	{
+		write(STDERR_FILENO,
+			"Qu'est-ce que tu fais,chef ? Tu veux me ***** ou quoi ?\n", 56);
+		return (1);
+	}
+	return (0);
+}
 
 void	update_shlvl(t_data *data)
 {
@@ -108,8 +108,8 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	// if (casspe(ac, av))
-	// 	return (1);
+	if (casspe(ac, av))
+		return (1);
 	(void)ac;
 	(void)av;
 	init_data(&data);

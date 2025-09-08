@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:43:02 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:31:13 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:39:56 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+// static void	read_from_pipe(int fd)
+// {
+// 	char	buffer[1024];
+// 	ssize_t	bytes_read;
+// 	ssize_t	written;
+
+// 	printf("je suis l %d\n", fd);
+// 	while ((bytes_read = read(fd, buffer, sizeof(buffer))) > 0)
+// 	{
+// 		written = write(STDOUT_FILENO, buffer, bytes_read);
+// 		if (written == -1)
+// 		{
+// 			perror("write");
+// 			break ;
+// 		}
+// 	}
+// 	if (bytes_read == -1)
+// 		perror("read");
+// 	close(fd);
+// }
 
 static bool	check_dir(char **path, char *cmd, t_data *data)
 {
@@ -53,35 +74,45 @@ static bool	cmd_exist(char **path, t_data *data, char *cmd)
 	return (true);
 }
 
-static void	redirect_in_out(t_data *data, t_cmd *cmd, int *pip)
+static void	redirect_in_out(t_data *data, t_cmd *cmd)
 {
-	close(pip[0]);
+	close(cmd->pip[0]);
 	if (cmd->infile >= 0)
 	{
+		if (cmd->fd_transfert >= 0)
+			close(cmd->fd_transfert);
 		dup2(cmd->infile, 0);
 		close(cmd->infile);
+	}
+	else if (cmd != data->cmd && cmd->fd_transfert)
+	{
+		dup2(cmd->fd_transfert, 0);
+		close(cmd->fd_transfert);
 	}
 	if (cmd->outfile >= 0)
 	{
 		dup2(cmd->outfile, 1);
 		close(cmd->outfile);
 	}
-	else if (cmd->next != data->cmd)
-		dup2(pip[1], 1);
-	close(pip[1]);
+	else
+	{
+		if (cmd->next != data->cmd)
+			dup2(cmd->pip[1], 1);
+	}
+	close(cmd->pip[1]);
 }
 
-static void	built(int *pip, t_cmd *cmd, t_data *data)
+static void	built(t_cmd *cmd, t_data *data)
 {
-	close(pip[0]);
+	close(cmd->pip[0]);
 	if (cmd->outfile < 0 && cmd->next != data->cmd)
-		cmd->outfile = pip[1];
+		cmd->outfile = cmd->pip[1];
 	else
-		close(pip[1]);
+		close(cmd->pip[1]);
 	launch_builtin(data, cmd);
 }
 
-void	child_process(t_data *data, t_cmd *cmd, int *pip)
+void	child_process(t_data *data, t_cmd *cmd)
 {
 	char	*path;
 	char	**env;
@@ -90,10 +121,10 @@ void	child_process(t_data *data, t_cmd *cmd, int *pip)
 	if (cmd->skip_cmd)
 		data->exit_code = 1;
 	else if (is_builtin(cmd->cmd_param[0]))
-		built(pip, cmd, data);
+		built(cmd, data);
 	else if (cmd_exist(&path, data, cmd->cmd_param[0]))
 	{
-		redirect_in_out(data, cmd, pip);
+		redirect_in_out(data, cmd);
 		env = lst_to_arr(data->env);
 		if (!env)
 			free_all(data, MALLOC_ERROR, EXT_MALLOC);

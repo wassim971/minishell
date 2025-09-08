@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:27:47 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 19:56:20 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:44:18 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ bool	parseline(t_data *data, char *line)
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 	}
 	free(line);
+	// if (data->last_cmd)
 	free(data->last_cmd);
 	data->last_cmd = ft_strdup(data->token->prev->str);
 	if (data->token && data->token->prev->type == PIPE)

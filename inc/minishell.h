@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 20:23:51 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:50:46 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_cmd
 	int					outfile;
 	pid_t				pid;
 	char				**cmd_param;
+	int					pip[2];
+	int					fd_transfert;
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -77,7 +79,6 @@ typedef struct s_data
 	t_token				*token;
 	t_cmd				*cmd;
 	int					exit_code;
-	int					pip[2];
 	bool				sq;
 	char				*last_cmd;
 }						t_data;
@@ -108,8 +109,7 @@ bool					create_list_token(t_token **begin, char *command);
 int						append_token(t_token **list, char **str, int type,
 							int quote);
 bool					create_list_cmd(t_data *data);
-int						append_cmd(t_cmd **list, int infile, int outfile,
-							char **cmd_param);
+int						append_cmd(t_cmd **list, char **cmd_param);
 bool					get_infile(t_data *data, t_token *token, t_cmd *cmd);
 bool					print_error_token(t_token *token, t_data *data);
 bool					get_outfile(t_token *token, t_cmd *cmd, t_data *data);
@@ -124,7 +124,7 @@ char					*ft_strjoin_free(char *s1, char *s2);
 void					quoting_choice(bool *dq, bool *sq, int *index, char c);
 size_t					len_cmd(t_cmd *list);
 bool					is_builtin(char *cmd);
-void					child_process(t_data *data, t_cmd *cmd, int *pip);
+void					child_process(t_data *data, t_cmd *cmd);
 bool					launch_builtin(t_data *data, t_cmd *cmd);
 void					absolute_path(char **path, char *cmd, t_data *data);
 char					*find_cmd(t_data *data, char *sample, t_mini_list *env);
@@ -152,10 +152,10 @@ char					*ft_strjoin_frees(char *s1, char *s2);
 t_data					*get_data(t_data *data);
 t_cmd					*get_cmd(t_cmd *cmd, int state);
 void					handle_sigpipe(int sig);
-void					launch_child(t_data *data, t_cmd *cmd, int *pip);
+void					launch_child(t_data *data, t_cmd *cmd);
 void					close_infile(t_cmd *cmd);
 bool					empty_line(char *line);
-void					parent_process(t_data *data, t_cmd *cmd, int *pip);
+void					parent_process(t_data *data, t_cmd *cmd);
 int						replace_dollars(char **line, t_data *data);
 void					*free_cmd_param(char **cmd, int i);
 

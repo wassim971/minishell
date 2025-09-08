@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:19:29 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 19:25:10 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:51:41 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	launch_child(t_data *data, t_cmd *cmd, int *pip)
+void	launch_child(t_data *data, t_cmd *cmd)
 {
 	close_infile(cmd);
 	get_data(data);
@@ -20,7 +20,7 @@ void	launch_child(t_data *data, t_cmd *cmd, int *pip)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGPIPE, handle_sigpipe);
 	if (cmd->cmd_param && cmd->cmd_param[0])
-		child_process(data, cmd, pip);
+		child_process(data, cmd);
 	else
 	{
 		data->exit_code = 1;
@@ -28,7 +28,7 @@ void	launch_child(t_data *data, t_cmd *cmd, int *pip)
 	}
 }
 
-static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
+static bool	exec_cmd(t_data *data, t_cmd *cmd)
 {
 	cmd->pid = fork();
 	get_cmd(cmd, 0);
@@ -42,13 +42,15 @@ static bool	exec_cmd(t_data *data, t_cmd *cmd, int *pip)
 	{
 		if (data->token)
 			free_token(&data->token);
-		launch_child(data, cmd, pip);
+		launch_child(data, cmd);
+		if (cmd->fd_transfert != -1)
+			close(cmd->fd_transfert);
 		free_all(data, NULL, data->exit_code);
 	}
 	else
 	{
 		get_cmd(cmd, 0);
-		parent_process(data, cmd, pip);
+		parent_process(data, cmd);
 	}
 	return (true);
 }
@@ -93,22 +95,20 @@ void	wait_all(t_data *data)
 bool	exec(t_data *data)
 {
 	t_cmd	*tmp;
-	int		*pip;
 
-	pip = data->pip;
 	tmp = data->cmd;
 	if (tmp && tmp->skip_cmd == false && tmp->next == tmp && tmp->cmd_param[0]
 		&& is_builtin(tmp->cmd_param[0]))
 		return (launch_builtin(data, tmp));
-	if (pipe(pip) == -1)
+	if (pipe(tmp->pip) == -1)
 		return (false);
-	exec_cmd(data, tmp, pip);
+	exec_cmd(data, tmp);
 	tmp = tmp->next;
 	while (tmp != data->cmd)
 	{
-		if (pipe(pip) == -1)
+		if (pipe(tmp->pip) == -1)
 			return (-1);
-		exec_cmd(data, tmp, pip);
+		exec_cmd(data, tmp);
 		tmp = tmp->next;
 	}
 	wait_all(data);

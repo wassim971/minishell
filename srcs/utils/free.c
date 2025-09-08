@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:56:42 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:03:45 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:58:38 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static void	free_all_cmd(t_cmd *tmp)
 {
+	// if (tmp->pip[0] && tmp->pip[0] != -1)
+	// 	close(tmp->pip[0]);
+	// if (tmp->pip[1] && tmp->pip[1] != -1)
+	// 	close(tmp->pip[1]);
 	if (tmp->infile > 0)
 		close(tmp->infile);
 	tmp->infile = -2;
@@ -93,10 +97,6 @@ void	free_all(t_data *data, char *err, int ext)
 		free_token(&data->token);
 	if (data->env)
 		free_list(&data->env);
-	if (data->pip[0] && data->pip[0] != -1)
-		close(data->pip[0]);
-	if (data->pip[1] && data->pip[1] != -1)
-		close(data->pip[1]);
 	if (data->last_cmd)
 		free(data->last_cmd);
 	if (err)

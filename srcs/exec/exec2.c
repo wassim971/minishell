@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 19:16:07 by ainthana          #+#    #+#             */
-/*   Updated: 2025/09/05 19:25:26 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:53:04 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ bool	is_builtin(char *cmd)
 	return (false);
 }
 
-void	parent_process(t_data *data, t_cmd *cmd, int *pip)
+void	parent_process(t_data *data, t_cmd *cmd)
 {
-	close(pip[1]);
+	close(cmd->pip[1]);
+	if (cmd->next != data->cmd)
+		cmd->next->fd_transfert = cmd->pip[0];
+	else
+		close(cmd->pip[0]);
 	if (cmd->infile >= 0)
 		close(cmd->infile);
 	if (cmd->outfile >= 0)
 		close(cmd->outfile);
-	if (cmd->infile == -2)
-		cmd->infile = pip[0];
-	if (cmd->next != data->cmd && cmd->next->infile == -2)
-		cmd->next->infile = pip[0];
-	else
-		close(pip[0]);
+	if (cmd->fd_transfert != -1)
+		close(cmd->fd_transfert);
 }

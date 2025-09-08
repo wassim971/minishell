@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liste_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 00:57:55 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 17:11:55 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:50:56 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	fill_cmd(t_data *data, t_token *tmp)
 {
-	if (!get_infile(data, tmp, data->cmd->prev)
-		&& data->cmd->prev->infile != -1)
+	if (!get_infile(data, tmp, data->cmd->prev) && data->cmd->prev->infile !=
+		-1)
 		return (false);
 	if (data->cmd->prev->infile == -1)
 	{
@@ -23,8 +23,8 @@ static bool	fill_cmd(t_data *data, t_token *tmp)
 		data->cmd->prev->outfile = -1;
 		return (true);
 	}
-	if (!get_outfile(tmp, data->cmd->prev, data)
-		&& data->cmd->prev->outfile != -1)
+	if (!get_outfile(tmp, data->cmd->prev, data) && data->cmd->prev->outfile !=
+		-1)
 		return (false);
 	if (data->cmd->prev->outfile == -1)
 	{
@@ -42,7 +42,7 @@ static bool	fill_cmd(t_data *data, t_token *tmp)
 
 static bool	build_command(t_data *data, t_token *tmp)
 {
-	if (!append_cmd(&data->cmd, -2, -2, NULL))
+	if (!append_cmd(&data->cmd, NULL))
 		free_all(data, MALLOC_ERROR, EXT_MALLOC);
 	if (!fill_cmd(data, tmp))
 	{

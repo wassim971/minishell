@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liste_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:48:41 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/05 20:18:21 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/08 17:38:59 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ static void	heredoc_sigint(int sig)
 		free_token(&save->token);
 	if (save->env)
 		free_list(&save->env);
-	if (save->pip[0] && save->pip[0] != -1)
-		close(save->pip[0]);
-	if (save->pip[1] && save->pip[1] != -1)
-		close(save->pip[1]);
+	// if (save->pip[0] && save->pip[0] != -1)
+	// 	close(save->pip[0]);
+	// if (save->pip[1] && save->pip[1] != -1)
+	// 	close(save->pip[1]);
 	if (save->last_cmd)
 		free(save->last_cmd);
 	rl_clear_history();

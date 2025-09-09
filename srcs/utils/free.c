@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:56:42 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/08 16:58:38 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 17:13:08 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 static void	free_all_cmd(t_cmd *tmp)
 {
-	// if (tmp->pip[0] && tmp->pip[0] != -1)
-	// 	close(tmp->pip[0]);
-	// if (tmp->pip[1] && tmp->pip[1] != -1)
-	// 	close(tmp->pip[1]);
 	if (tmp->infile > 0)
 		close(tmp->infile);
 	tmp->infile = -2;

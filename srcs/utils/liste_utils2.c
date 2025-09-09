@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 02:48:41 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/08 17:38:59 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 17:15:02 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,83 +98,52 @@ static void	heredoc_sigint(int sig)
 		free_token(&save->token);
 	if (save->env)
 		free_list(&save->env);
-	// if (save->pip[0] && save->pip[0] != -1)
-	// 	close(save->pip[0]);
-	// if (save->pip[1] && save->pip[1] != -1)
-	// 	close(save->pip[1]);
 	if (save->last_cmd)
 		free(save->last_cmd);
 	rl_clear_history();
 	exit(130);
 }
 
-// int	here_doc(t_data *data, char *word)
-// {
-// 	int		fd;
-// 	pid_t	pid;
-// 	int		status;
-
-// 	fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-// 	if (fd < 0)
-// 		return (-1);
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		get_data(data);
-// 		signal(SIGINT, heredoc_sigint);
-// 		read_in_stdin(data, fd, word);
-// 		close(fd);
-// 		free_all(data, NULL, 0);
-// 		rl_clear_history();
-// 		exit(0);
-// 	}
-// 	else
-// 	{
-// 		signal(SIGINT, SIG_IGN);
-// 		close(fd);
-// 		waitpid(pid, &status, 0);
-// 		if (status == 130 << 8)
-// 		{
-// 			data->exit_code = 130;
-// 			unlink(".heredoc.tmp");
-// 			return (-1);
-// 		}
-// 	}
-// 	fd = open(".heredoc.tmp", O_RDONLY);
-// 	if (fd >= 0)
-// 		unlink(".heredoc.tmp");
-// 	signals();
-// 	return (fd);
-// }
-
-static void	heredoc_child(t_data *data, int fd, char *word)
+static int	heredoc_part(t_data *data, int fd, char *word)
 {
-	get_data(data);
-	signal(SIGINT, heredoc_sigint);
-	read_in_stdin(data, fd, word);
-	close(fd);
-	free_all(data, NULL, 0);
-	rl_clear_history();
-	exit(0);
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		get_data(data);
+		signal(SIGINT, heredoc_sigint);
+		read_in_stdin(data, fd, word);
+		close(fd);
+		rl_clear_history();
+		free_her(data);
+		exit(0);
+	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		close(fd);
+		waitpid(pid, &status, 0);
+		if (status == 130 << 8)
+			return (-1);
+	}
+	return (1);
 }
 
 int	here_doc(t_data *data, char *word)
 {
-	int		fd;
-	pid_t	pid;
-	int		status;
+	int	fd;
 
 	fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (-1);
-	pid = fork();
-	if (pid == 0)
-		heredoc_child(data, fd, word);
-	signal(SIGINT, SIG_IGN);
-	close(fd);
-	waitpid(pid, &status, 0);
-	if (status == 130 << 8)
-		return (data->exit_code = 130, unlink(".heredoc.tmp"), -1);
+	if (heredoc_part(data, fd, word) == -1)
+	{
+		data->exit_code = 130;
+		unlink(".heredoc.tmp");
+		return (-1);
+	}
 	fd = open(".heredoc.tmp", O_RDONLY);
 	if (fd >= 0)
 		unlink(".heredoc.tmp");

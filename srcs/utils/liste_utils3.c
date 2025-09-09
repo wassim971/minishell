@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   liste_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainthana <ainthana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 20:01:24 by ainthana          #+#    #+#             */
-/*   Updated: 2025/09/05 20:18:45 by ainthana         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:05:42 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,28 @@ int	replace_dollars(char **line, t_data *data)
 	free(*line);
 	*line = &(*str);
 	return (1);
+}
+
+// bool	here_parent(t_data *data, int *fd, pid_t *pid, int *status)
+// {
+// 	signal(SIGINT, SIG_IGN);
+// 	close((*fd));
+// 	waitpid((*pid), status, 0);
+// 	if ((*status) == 130 << 8)
+// 	{
+// 		data->exit_code = 130;
+// 		unlink(".heredoc.tmp");
+// 		return (false);
+// 	}
+// 	return (true);
+// }
+
+int	get_fd(int fd)
+{
+	static int	save_fd;
+
+	if (fd == -2)
+		return (fd);
+	save_fd = fd;
+	return (-2);
 }

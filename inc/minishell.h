@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/08 16:50:46 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 17:04:38 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,8 @@ bool					empty_line(char *line);
 void					parent_process(t_data *data, t_cmd *cmd);
 int						replace_dollars(char **line, t_data *data);
 void					*free_cmd_param(char **cmd, int i);
+// void					close_pipe(t_cmd *cmd);
+// int						get_fd(int fd);
+void					free_her(t_data *data);
 
 #endif

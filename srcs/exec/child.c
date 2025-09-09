@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:43:02 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/08 18:39:56 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 16:15:53 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ static void	redirect_in_out(t_data *data, t_cmd *cmd)
 
 static void	built(t_cmd *cmd, t_data *data)
 {
+	if (cmd->fd_transfert != -1)
+		close(cmd->fd_transfert);
 	close(cmd->pip[0]);
 	if (cmd->outfile < 0 && cmd->next != data->cmd)
 		cmd->outfile = cmd->pip[1];

@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:04:33 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/08 18:57:38 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 17:12:05 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	casspe(int ac, char **av)
 	if (!isatty(STDOUT_FILENO))
 	{
 		write(STDERR_FILENO,
-			"Qu'est-ce que tu fais,chef ? Tu veux me ***** ou quoi ?\n", 56);
+			"Qu'est-ce que tu fais,chef ? Tu veux me mettre 0 ou quoi ?\n", 59);
 		return (1);
 	}
 	return (0);
@@ -93,8 +93,6 @@ int	main(int ac, char **av, char **env)
 
 	if (casspe(ac, av))
 		return (1);
-	// (void)ac;
-	// (void)av;
 	init_data(&data);
 	if (!make_env(&data, env))
 		free_all(&data, MALLOC_ERROR, EXT_MALLOC);

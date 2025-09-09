@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 13:19:29 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/08 18:51:41 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 17:10:07 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	launch_child(t_data *data, t_cmd *cmd)
 		child_process(data, cmd);
 	else
 	{
+		close(cmd->pip[0]);
+		close(cmd->pip[1]);
 		data->exit_code = 1;
 		free_all(data, NULL, data->exit_code);
 	}

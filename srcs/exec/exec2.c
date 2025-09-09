@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 19:16:07 by ainthana          #+#    #+#             */
-/*   Updated: 2025/09/08 18:53:04 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/09 14:36:48 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	is_builtin(char *cmd)
 void	parent_process(t_data *data, t_cmd *cmd)
 {
 	close(cmd->pip[1]);
-	if (cmd->next != data->cmd)
+	if (cmd->next != data->cmd && cmd->next->skip_cmd == false)
 		cmd->next->fd_transfert = cmd->pip[0];
 	else
 		close(cmd->pip[0]);

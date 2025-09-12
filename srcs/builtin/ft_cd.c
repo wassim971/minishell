@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 15:27:58 by wbaali            #+#    #+#             */
-/*   Updated: 2025/08/22 15:58:01 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/12 16:18:01 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	update_oldpwd(t_data *data)
 	free(test);
 }
 
-static void	update_pwd(t_data *data, char *param)
+void	update_pwd(t_data *data, char *param)
 {
 	char	cwd[PATH_MAX];
 	char	*pwd;
@@ -75,18 +75,26 @@ static void	update_pwd(t_data *data, char *param)
 
 int	ft_cd(t_data *data, char **params)
 {
-	int	res;
+	int		res;
+	char	*home;
+	int		i;
 
-	if (count_arg(params) == 2)
+	i = 1;
+	if (count_arg(params) == 1)
+	{
+		home = get_env_value("HOME", data->env, data);
+		if (!home)
+		{
+			print_error("cd: HOME not set\n");
+			return (1);
+		}
+		res = chdir(home);
+		i = ft_cd_part(res, data, "cd");
+	}
+	else if (count_arg(params) == 2)
 	{
 		res = chdir(params[1]);
-		if (res == 0)
-			update_pwd(data, params[1]);
-		if (res == -1)
-			res *= -1;
-		if (res == 1)
-			perror(params[1]);
-		return (res);
+		i = ft_cd_part(res, data, params[1]);
 	}
-	return (1);
+	return (i);
 }

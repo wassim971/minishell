@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 12:08:37 by wbaali            #+#    #+#             */
-/*   Updated: 2025/09/09 17:04:38 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/09/12 16:08:55 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@
 # define EXT_MALLOC 1
 # define EXT_PIPE 1
 # define EXT_FORK 1
-
-extern pid_t			g_signal_pid;
 
 typedef struct s_cmd
 {
@@ -158,8 +156,12 @@ bool					empty_line(char *line);
 void					parent_process(t_data *data, t_cmd *cmd);
 int						replace_dollars(char **line, t_data *data);
 void					*free_cmd_param(char **cmd, int i);
-// void					close_pipe(t_cmd *cmd);
-// int						get_fd(int fd);
+void					get_close_pip(t_cmd *cmd);
 void					free_her(t_data *data);
+void					fin_child(char *path, char **env, t_data *data);
+char					*get_env_value(char *key, t_mini_list *env,
+							t_data *data);
+int						ft_cd_part(int res, t_data *data, char *params);
+void					update_pwd(t_data *data, char *param);
 
 #endif
